@@ -12,8 +12,9 @@ An Angular-native UI library and design system.
 Noxra is a UI library built for Angular rather than adapted to it.
 
 - **Angular 22**, zoneless, signal-based APIs, no `zone.js` anywhere.
-- **Directive-first.** Components enhance native elements and add no DOM.
-  `<button nxButton>` renders one `<button>`.
+- **Directive-first.** Components enhance native elements rather than wrapping
+  them: `<button nxButton>` renders one `<button>`. The two that must create
+  DOM — Alert and Tooltip — create one element, lazily.
 - **Semantic design tokens.** Components consume token names; themes assign
   values. Four themes ship, and a custom theme is just a CSS rule.
 - **Motion as a system.** Every animation reads a token, so reduced motion is
@@ -31,7 +32,7 @@ Noxra is a UI library built for Angular rather than adapted to it.
 | Area                        | State                                                       |
 | --------------------------- | ----------------------------------------------------------- |
 | Workspace, build, packaging | Working                                                     |
-| Design tokens and theming   | 86 tokens, 4 themes, contract + WCAG AA enforced            |
+| Design tokens and theming   | 87 tokens, 4 themes, contract + WCAG AA enforced            |
 | Motion system               | Tokens, reduced-motion, looping motion                      |
 | Components                  | Button, Input, Card, Badge, Spinner, Dialog, Alert, Tooltip |
 | Tests                       | 84 specs: jsdom, browser, SSR                               |

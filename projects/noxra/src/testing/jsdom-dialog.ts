@@ -17,11 +17,7 @@
  * Excluded from the library build; see `tsconfig.lib.json`.
  */
 
-interface DialogInternals {
-  __nxOpen?: boolean;
-}
-
-type PatchableDialog = HTMLDialogElement & DialogInternals;
+type PatchableDialog = HTMLDialogElement;
 
 const proto = globalThis.HTMLDialogElement?.prototype as PatchableDialog | undefined;
 

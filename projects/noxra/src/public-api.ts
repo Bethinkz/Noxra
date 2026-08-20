@@ -40,7 +40,6 @@ export {
 export { NxVisuallyHidden } from './lib/core/a11y/visually-hidden';
 
 export { type NxOrientation, type NxSize } from './lib/core/utilities/types';
-export { nxUniqueId } from './lib/core/utilities/unique-id';
 
 // ------------------------------------------------------------ components
 export { NxButton } from './lib/components/button/button';

@@ -64,9 +64,17 @@ Two conventions make the boundary visible in CSS too:
 
 ## Component philosophy
 
-Noxra components are **directives on native elements**, not components that
-generate markup. Every component in this milestone — Button, Input, Card, Badge,
-Spinner — adds exactly zero DOM nodes.
+Noxra components are **directives on native elements** wherever the consumer
+could reasonably write the markup themselves. Button, Input, Card, Badge,
+Spinner and Dialog add exactly zero DOM nodes — `<dialog nxDialog>` renders one
+`<dialog>`, and even a loading button's spinner is a pseudo-element.
+
+Two components deliberately break that, and the exception is the rule's own
+boundary: **Alert** renders a dialog the consumer never writes, because the
+entire point of the service is that they write one line of TypeScript instead;
+**Tooltip** creates its bubble, because a tooltip has nothing to attach text
+to. Both create the minimum — one element, lazily — and neither restructures
+what it was given.
 
 ```html
 <button nxButton variant="outline">Save</button>

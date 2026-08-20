@@ -97,3 +97,26 @@ learn which components are which. Consistency is worth more.
 **Web components / custom elements.** Would give framework portability, at the
 cost of the Angular-native signal and DI integration that is the point of
 Noxra, plus meaningful SSR and hydration complexity.
+
+## Outcome (2026-08-20)
+
+The rule held further than expected, and its own example was wrong.
+
+Dialog was named above as a case that would need a component, for "a Dialog's
+backdrop and positioning container". It needed neither. The native `<dialog>`
+supplies the backdrop as a pseudo-element and the top layer as positioning, so
+`NxDialog` is a directive that emits no DOM at all. Tooltip, not predicted here,
+turned out to need the Popover API plus CSS anchor positioning — also no
+positioning container.
+
+The two components that did cross the boundary crossed it for a different
+reason than DOM complexity:
+
+- **Alert** renders a dialog the consumer never writes, because the whole point
+  of an imperative `confirm()` is that the call site is one line of TypeScript.
+- **Tooltip** creates its bubble, because a tooltip has no element to attach
+  its text to.
+
+So the useful test is not "is this markup complicated" but **"would the
+consumer write this markup at all?"** Both create exactly one element, lazily,
+and neither restructures what it was given.

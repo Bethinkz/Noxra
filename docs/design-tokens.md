@@ -73,7 +73,7 @@ The contract exists as CSS (`styles/`) and as TypeScript
 4. Every private `--_nx-*` property a stylesheet uses is declared in that same
    stylesheet.
 
-Currently: **86 tokens** — 54 structural, 32 theme-owned — across 4 themes.
+Currently: **87 tokens** — 54 structural, 33 theme-owned — across 4 themes.
 
 ## Public and private properties
 

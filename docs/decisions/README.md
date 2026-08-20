@@ -24,6 +24,11 @@ Records are immutable once merged. To change a decision, add a new record that
 supersedes the old one and mark the old one superseded — the point is the trail,
 not the current state.
 
+One exception: a record may gain an **Outcome** section, appended, once reality
+has tested its predictions. Appending what happened is not rewriting what was
+decided, and an ADR whose guesses were never checked against the result is
+worth less than one that says which of them held.
+
 ## Index
 
 | #                                                    | Decision                                              | Status   |

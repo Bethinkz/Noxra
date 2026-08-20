@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NxBadge, NxButton, NxCard, NxCardBody, NxCardHeader } from '@noxra/ui';
+import { NxBadge, NxButton, NxCard, NxCardBody, NxCardHeader, NxVisuallyHidden } from '@noxra/ui';
 
 interface TypeStep {
   readonly token: string;
@@ -15,7 +15,7 @@ interface PaletteEntry {
 @Component({
   selector: 'app-foundation-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NxButton, NxBadge, NxCard, NxCardHeader, NxCardBody],
+  imports: [NxButton, NxBadge, NxCard, NxCardHeader, NxCardBody, NxVisuallyHidden],
   template: `
     <div class="page">
       <header>
@@ -106,6 +106,24 @@ interface PaletteEntry {
               order.
             </div>
           </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Visually hidden</h2>
+        <p class="section-note">
+          The only thing in <code>core/a11y</code>, because it is the only one of these the platform
+          does not already provide. The button below is icon-only on screen and still has a name in
+          the accessibility tree — inspect it, or tab to it with a screen reader running.
+        </p>
+        <div class="row">
+          <button nxButton variant="outline" aria-live="off">
+            <span aria-hidden="true">⌫</span>
+            <span nxVisuallyHidden>Delete selected items</span>
+          </button>
+          <span class="section-note" style="margin: 0">
+            accessible name: <strong>Delete selected items</strong>
+          </span>
         </div>
       </section>
 
