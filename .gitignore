@@ -42,3 +42,8 @@ Thumbs.db
 
 # Claude Code local tooling
 .claude/
+
+# Browser test artifacts. Vitest writes a screenshot on failure; they are
+# debugging output from a single run, not source.
+.vitest-attachments/
+**/__screenshots__/
