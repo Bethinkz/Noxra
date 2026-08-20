@@ -1,0 +1,30 @@
+{
+  "name": "@noxra/ui",
+  "version": "0.0.0",
+  "description": "Angular-native UI library and design system. Zoneless-first, signal-first, SSR-safe, token-themed.",
+  "keywords": [
+    "angular",
+    "ui",
+    "design-system",
+    "components",
+    "design-tokens",
+    "zoneless",
+    "signals",
+    "ssr"
+  ],
+  "license": "MIT",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "exports": {
+    "./styles/*": {
+      "style": "./styles/*",
+      "default": "./styles/*"
+    }
+  }
+}

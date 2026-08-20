@@ -1,0 +1,62 @@
+{
+  "name": "noxra-workspace",
+  "version": "0.0.0",
+  "description": "Development workspace for Noxra, an Angular-native UI library and design system.",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "npm@11.6.2",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve showcase",
+    "build": "npm run build:lib && npm run build:showcase",
+    "build:lib": "ng build noxra --configuration production",
+    "build:showcase": "ng build showcase --configuration production",
+    "watch:lib": "ng build noxra --watch --configuration development",
+    "test": "ng test noxra --no-watch",
+    "test:watch": "ng test noxra",
+    "test:showcase": "ng test showcase --no-watch",
+    "typecheck": "tsc -b --pretty",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:tokens": "node tools/check-tokens.mjs",
+    "check:package": "node tools/check-package.mjs",
+    "verify:ssr": "node tools/verify-ssr.mjs",
+    "verify": "node tools/verify.mjs",
+    "serve:ssr:showcase": "node dist/showcase/server/server.mjs"
+  },
+  "dependencies": {
+    "@angular/common": "^22.1.0",
+    "@angular/compiler": "^22.1.0",
+    "@angular/core": "^22.1.0",
+    "@angular/forms": "^22.1.0",
+    "@angular/platform-browser": "^22.1.0",
+    "@angular/platform-server": "^22.1.0",
+    "@angular/router": "^22.1.0",
+    "@angular/ssr": "^22.1.5",
+    "express": "^5.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.1.5",
+    "@angular/cli": "^22.1.5",
+    "@angular/compiler-cli": "^22.1.0",
+    "@eslint/js": "^10.0.1",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "angular-eslint": "^22.1.0",
+    "eslint": "^10.8.1",
+    "jsdom": "^28.0.0",
+    "ng-packagr": "^22.1.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.67.0",
+    "vitest": "^4.0.8"
+  }
+}
