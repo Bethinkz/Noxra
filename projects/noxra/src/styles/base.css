@@ -21,6 +21,30 @@
   border: 0;
 }
 
+/**
+ * Transition suppression during a theme swap.
+ *
+ * A CSS transition whose value comes from a custom property stalls when that
+ * property changes: the browser pins the property at the value it held when
+ * the transition began, so a themed `background-color` or `border-color`
+ * silently keeps the *old* theme's colour until something else invalidates it.
+ * Reloading hides it, which is why this class of bug survives demos and
+ * surfaces in production.
+ *
+ * `NxThemeService` sets this attribute, commits the new theme, and clears it on
+ * the next frame, so the swap lands instantly and transitions resume after.
+ *
+ * This is the one place Noxra uses `!important`. It has to outrank transitions
+ * declared by the consuming application, not just Noxra's own, and it is
+ * active for a single frame.
+ */
+[data-nx-theme-switching],
+[data-nx-theme-switching] *,
+[data-nx-theme-switching] *::before,
+[data-nx-theme-switching] *::after {
+  transition: none !important;
+}
+
 /** Shared by the spinner and by the button's loading indicator. */
 @keyframes nx-spin {
   to {

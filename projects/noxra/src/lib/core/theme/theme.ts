@@ -1,4 +1,5 @@
-import { DOCUMENT, Injectable, computed, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 
 import { NOXRA_CONFIG } from '../noxra-config';
 import type { NxTokenOverrides } from '../tokens/token-names';
@@ -6,6 +7,9 @@ import { NX_DEFAULT_THEME, type NxThemeName } from './theme.types';
 
 /** Attribute the active theme is published on. */
 const THEME_ATTRIBUTE = 'data-nx-theme';
+
+/** Set for a single frame while a swap lands. See `styles/base.css`. */
+const SWITCHING_ATTRIBUTE = 'data-nx-theme-switching';
 
 /**
  * Applies and tracks the active Noxra theme.
@@ -23,7 +27,10 @@ const THEME_ATTRIBUTE = 'data-nx-theme';
 @Injectable({ providedIn: 'root' })
 export class NxThemeService {
   private readonly document = inject(DOCUMENT);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly config = inject(NOXRA_CONFIG, { optional: true });
+
+  private restoreHandle: ReturnType<typeof setTimeout> | undefined;
 
   private readonly currentTheme = signal<NxThemeName>(this.config?.theme ?? NX_DEFAULT_THEME);
   private readonly currentOverrides = signal<NxTokenOverrides>({});
@@ -63,20 +70,62 @@ export class NxThemeService {
     const previous = this.currentOverrides();
     this.currentOverrides.set({});
 
-    const root = this.document.documentElement;
-    for (const token of Object.keys(previous)) {
-      root.style.removeProperty(token);
-    }
+    this.commit((root) => {
+      for (const token of Object.keys(previous)) {
+        root.style.removeProperty(token);
+      }
+    });
   }
 
   private applyTheme(): void {
-    this.document.documentElement.setAttribute(THEME_ATTRIBUTE, this.currentTheme());
+    this.commit((root) => root.setAttribute(THEME_ATTRIBUTE, this.currentTheme()));
   }
 
   private applyOverrides(): void {
+    this.commit((root) => {
+      for (const [token, value] of Object.entries(this.currentOverrides())) {
+        root.style.setProperty(token, value);
+      }
+    });
+  }
+
+  /**
+   * Applies a token change with transitions suppressed while it lands.
+   *
+   * A CSS transition whose value derives from a custom property stalls when
+   * that property changes - the browser keeps the property pinned at the value
+   * it held when the transition started. Without this, a themed
+   * `background-color` keeps rendering the previous theme's colour until
+   * something unrelated invalidates it.
+   *
+   * The restore is a timeout rather than `requestAnimationFrame` on purpose.
+   * A hidden or backgrounded tab does not run animation frames, so an rAF
+   * restore never fires there and the application is left with transitions
+   * disabled forever - which is exactly what happens when a theme follows the
+   * system colour scheme and it changes while the tab is in the background.
+   * Timeouts are throttled in the background, but they do run.
+   *
+   * Forcing layout before scheduling the restore is what makes the timeout
+   * safe: the new values are already the current computed values by then, so
+   * re-enabling transitions cannot start one retroactively.
+   */
+  private commit(write: (root: HTMLElement) => void): void {
     const root = this.document.documentElement;
-    for (const [token, value] of Object.entries(this.currentOverrides())) {
-      root.style.setProperty(token, value);
+
+    // Nothing transitions during server rendering.
+    if (!this.isBrowser) {
+      write(root);
+      return;
     }
+
+    root.setAttribute(SWITCHING_ATTRIBUTE, '');
+    write(root);
+
+    // Commit the new values while transitions are still suppressed.
+    void root.offsetHeight;
+
+    // A rapid second change restarts the window rather than ending it early.
+    clearTimeout(this.restoreHandle);
+    this.restoreHandle = setTimeout(() => root.removeAttribute(SWITCHING_ATTRIBUTE), 0);
   }
 }

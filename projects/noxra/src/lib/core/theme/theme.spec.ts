@@ -7,6 +7,7 @@ describe('NxThemeService', () => {
   afterEach(() => {
     const root = document.documentElement;
     root.removeAttribute('data-nx-theme');
+    root.removeAttribute('data-nx-theme-switching');
     root.removeAttribute('style');
   });
 
@@ -57,6 +58,56 @@ describe('NxThemeService', () => {
     expect(style.getPropertyValue('--nx-accent')).toBe('#ff00ff');
     expect(style.getPropertyValue('--nx-radius-md')).toBe('2px');
     expect(service.hasOverrides()).toBe(true);
+  });
+
+  it('suppresses transitions across a theme swap, then restores them', async () => {
+    TestBed.configureTestingModule({});
+    const service = TestBed.inject(NxThemeService);
+    const root = document.documentElement;
+
+    service.setTheme('neon');
+
+    // A CSS transition whose value comes from a custom property stalls when
+    // that property changes, pinning the old theme's colour. The attribute is
+    // what disables transitions while the new values are committed.
+    expect(root.hasAttribute('data-nx-theme-switching')).toBe(true);
+    expect(root.getAttribute('data-nx-theme')).toBe('neon');
+
+    // Restored on a timeout, not an animation frame: a hidden tab runs no
+    // animation frames, so an rAF restore would leave the application with
+    // transitions disabled forever.
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(root.hasAttribute('data-nx-theme-switching')).toBe(false);
+  });
+
+  it('does not lose the restore when themes change in quick succession', async () => {
+    TestBed.configureTestingModule({});
+    const service = TestBed.inject(NxThemeService);
+    const root = document.documentElement;
+
+    service.setTheme('neon');
+    service.setTheme('mono');
+    service.setTheme('light');
+
+    expect(root.hasAttribute('data-nx-theme-switching')).toBe(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(root.hasAttribute('data-nx-theme-switching')).toBe(false);
+    expect(root.getAttribute('data-nx-theme')).toBe('light');
+  });
+
+  it('suppresses transitions for runtime token overrides too', async () => {
+    TestBed.configureTestingModule({});
+    const service = TestBed.inject(NxThemeService);
+    const root = document.documentElement;
+
+    service.setTokens({ '--nx-accent': '#ff00ff' });
+    expect(root.hasAttribute('data-nx-theme-switching')).toBe(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(root.hasAttribute('data-nx-theme-switching')).toBe(false);
   });
 
   it('removes every override on reset', () => {
