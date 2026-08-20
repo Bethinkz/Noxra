@@ -1,11 +1,19 @@
 /**
- * Noxra Void — the default dark theme.
+ * Noxra Void — the default dark theme, and Noxra's identity.
  *
- * Void is applied to `:root` so Noxra is themed out of the box, and is also
- * addressable as `[data-nx-theme='void']` so it can be re-selected at runtime.
+ * Near-black surfaces, near-white text, a neutral grey ramp with a faint cool
+ * cast, and one neon accent used sparingly. Void binds to `:root` as well as
+ * its own attribute, so importing the stylesheet is enough.
  *
- * Colour values here are deliberately provisional. This milestone establishes
- * the token architecture, not the final visual identity.
+ * Every value here is checked by `npm run check:contrast`. Two of them are
+ * lighter than a purely aesthetic choice would make them, on purpose:
+ *
+ * - `--nx-content-tertiary` sits at 4.5:1 against a raised surface, because it
+ *   carries real text (timestamps, hints, captions), not decoration.
+ * - `--nx-border-strong` sits above 3:1 because it draws the boundary of form
+ *   controls, which WCAG 1.4.11 treats as information. The quieter
+ *   `--nx-border-subtle` and `--nx-border-default` stay decorative and are
+ *   free to be almost invisible.
  */
 
 :root,
@@ -13,46 +21,50 @@
   color-scheme: dark;
 
   /* --------------------------------------------------------------- surface */
-  --nx-surface-base: #08090a;
   --nx-surface-sunken: #050506;
-  --nx-surface-raised: #0f1113;
-  --nx-surface-overlay: #16181a;
-  --nx-surface-inverse: #f5f6f7;
+  --nx-surface-base: #0a0a0c;
+  --nx-surface-raised: #121316;
+  --nx-surface-overlay: #1a1b1f;
+  --nx-surface-inverse: #f2f3f5;
 
   /* --------------------------------------------------------------- content */
-  --nx-content-primary: #f5f6f7;
-  --nx-content-secondary: #a2a6ab;
-  --nx-content-tertiary: #6d7276;
-  --nx-content-disabled: #4a4e52;
-  --nx-content-inverse: #08090a;
-  --nx-content-on-accent: #04140b;
+  --nx-content-primary: #f2f3f5;
+  --nx-content-secondary: #a0a6ae;
+  --nx-content-tertiary: #7a7f87;
+  --nx-content-disabled: #4a4e55;
+  --nx-content-inverse: #0a0a0c;
+  --nx-content-on-accent: #05130b;
 
   /* ---------------------------------------------------------------- border */
-  --nx-border-subtle: #1a1d20;
-  --nx-border-default: #26292d;
-  --nx-border-strong: #3b3f44;
+  --nx-border-subtle: #191a1e;
+  --nx-border-default: #26282d;
+  --nx-border-strong: #62666e;
 
   /* ---------------------------------------------------------------- accent */
-  --nx-accent: #41f59b;
-  --nx-accent-hover: #63f7b0;
-  --nx-accent-active: #2ad97e;
-  --nx-accent-subtle: rgb(65 245 155 / 12%);
-  --nx-accent-muted: rgb(65 245 155 / 32%);
+  --nx-accent: #3de8a0;
+  --nx-accent-hover: #5cf0b3;
+  --nx-accent-active: #22c77f;
+  --nx-accent-subtle: rgb(61 232 160 / 12%);
+  --nx-accent-muted: rgb(61 232 160 / 38%);
 
   /* ----------------------------------------------------------------- state */
   --nx-state-hover: rgb(255 255 255 / 6%);
-  --nx-state-active: rgb(255 255 255 / 10%);
-  --nx-state-selected: rgb(65 245 155 / 12%);
+  --nx-state-active: rgb(255 255 255 / 11%);
+  --nx-state-selected: rgb(61 232 160 / 12%);
   --nx-state-focus-ring: var(--nx-accent);
   --nx-state-disabled-opacity: 0.45;
-  --nx-state-danger: #ff6b5f;
-  --nx-state-success: #41f59b;
-  --nx-state-warning: #ffc857;
-  --nx-state-info: #5ac8fa;
+  --nx-state-danger: #ff7a72;
+  --nx-state-success: #3de8a0;
+  --nx-state-warning: #ffc44d;
+  --nx-state-info: #6cc6ff;
 
-  /* ---------------------------------------------------------------- shadow */
+  /* ----------------------------------------------------------------- shadow
+   * Shadow is nearly invisible against near-black, so elevation is carried by
+   * the surface ramp and these stay genuinely restrained. No glow: the accent
+   * earns attention by being rare, not by being loud.
+   */
   --nx-shadow-none: none;
-  --nx-shadow-sm: 0 1px 2px rgb(0 0 0 / 60%);
-  --nx-shadow-md: 0 4px 12px rgb(0 0 0 / 55%);
-  --nx-shadow-lg: 0 12px 32px rgb(0 0 0 / 60%);
+  --nx-shadow-sm: 0 1px 2px rgb(0 0 0 / 55%);
+  --nx-shadow-md: 0 6px 20px rgb(0 0 0 / 50%);
+  --nx-shadow-lg: 0 18px 48px rgb(0 0 0 / 58%);
 }

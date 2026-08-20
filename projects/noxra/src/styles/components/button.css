@@ -71,8 +71,13 @@
   color: var(--nx-content-on-accent);
 }
 
+/*
+ * The outline variant's border is what identifies the control, so it uses
+ * `--nx-border-strong` - the only border token held to WCAG 1.4.11's 3:1.
+ * `--nx-border-default` is for container edges and is free to be decorative.
+ */
 .nx-button[data-variant='outline'] {
-  border-color: var(--nx-border-default);
+  border-color: var(--nx-border-strong);
   color: var(--nx-content-primary);
 }
 
@@ -95,7 +100,7 @@
 }
 
 .nx-button--enabled[data-variant='outline']:hover {
-  border-color: var(--nx-border-strong);
+  border-color: var(--nx-accent-muted);
   background-color: var(--nx-state-hover);
 }
 

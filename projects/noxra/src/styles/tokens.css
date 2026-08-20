@@ -16,9 +16,9 @@
 :root {
   /* ---------------------------------------------------------------- radius */
   --nx-radius-none: 0;
-  --nx-radius-sm: 4px;
-  --nx-radius-md: 8px;
-  --nx-radius-lg: 12px;
+  --nx-radius-sm: 3px;
+  --nx-radius-md: 6px;
+  --nx-radius-lg: 10px;
   --nx-radius-full: 9999px;
 
   /* ----------------------------------------------------------------- space */
@@ -36,29 +36,43 @@
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --nx-font-mono:
     ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  /*
+   * The scale is flat where controls live (xs-md, 12/14/16px) and opens up
+   * above it (20/24/32px). Interface text wants small, predictable steps;
+   * headings want obvious ones. One scale doing both is why so many systems
+   * end up with weak headings.
+   */
   --nx-font-size-xs: 0.75rem;
   --nx-font-size-sm: 0.875rem;
   --nx-font-size-md: 1rem;
-  --nx-font-size-lg: 1.125rem;
-  --nx-font-size-xl: 1.25rem;
+  --nx-font-size-lg: 1.25rem;
+  --nx-font-size-xl: 1.5rem;
+  --nx-font-size-2xl: 2rem;
+
   --nx-font-weight-regular: 400;
   --nx-font-weight-medium: 500;
   --nx-font-weight-semibold: 600;
-  --nx-line-height-tight: 1.2;
-  --nx-line-height-normal: 1.5;
-  --nx-letter-spacing-tight: -0.01em;
+
+  --nx-line-height-tight: 1.15;
+  --nx-line-height-normal: 1.55;
+
+  /*
+   * Tracking tightens as size grows and opens up for the small uppercase
+   * labels this design leans on.
+   */
+  --nx-letter-spacing-tight: -0.02em;
   --nx-letter-spacing-normal: 0em;
-  --nx-letter-spacing-wide: 0.04em;
+  --nx-letter-spacing-wide: 0.08em;
 
   /* ----------------------------------------------------------------- focus */
   --nx-focus-ring-width: 2px;
   --nx-focus-ring-offset: 2px;
 
   /* ---------------------------------------------------------------- motion */
-  --nx-duration-instant: 60ms;
-  --nx-duration-fast: 120ms;
-  --nx-duration-normal: 200ms;
-  --nx-duration-slow: 320ms;
+  --nx-duration-instant: 70ms;
+  --nx-duration-fast: 130ms;
+  --nx-duration-normal: 210ms;
+  --nx-duration-slow: 340ms;
 
   --nx-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --nx-easing-enter: cubic-bezier(0.05, 0.7, 0.1, 1);

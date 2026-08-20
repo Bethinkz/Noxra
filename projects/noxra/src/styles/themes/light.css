@@ -1,48 +1,56 @@
 /**
  * Noxra Light.
  *
- * Included to prove the token contract is not dark-only. Noxra's default
- * experience is dark; light is a first-class alternative, not a fallback.
+ * Noxra's default experience is dark, but light is a first-class theme rather
+ * than an inversion. Two tokens have to flip meaning, which is exactly why
+ * they are theme-owned:
+ *
+ * - `--nx-content-on-accent` is white here. The accent must be dark enough to
+ *   carry white text and to be readable *as* text on white, so a bright neon
+ *   green is not available — it fails both ways round.
+ * - `--nx-shadow-*` becomes real. On dark themes elevation comes from the
+ *   surface ramp; on white there is nowhere lighter to go, so shadow does the
+ *   work.
  */
 
 [data-nx-theme='light'] {
   color-scheme: light;
 
-  --nx-surface-base: #ffffff;
-  --nx-surface-sunken: #f4f5f6;
+  --nx-surface-sunken: #eceef0;
+  --nx-surface-base: #f7f8f9;
   --nx-surface-raised: #ffffff;
   --nx-surface-overlay: #ffffff;
-  --nx-surface-inverse: #0b0c0e;
+  --nx-surface-inverse: #0a0a0c;
 
-  --nx-content-primary: #0b0c0e;
-  --nx-content-secondary: #55595e;
-  --nx-content-tertiary: #7c8186;
-  --nx-content-disabled: #aeb2b6;
+  --nx-content-primary: #0d0e11;
+  --nx-content-secondary: #565b62;
+  --nx-content-tertiary: #686e76;
+  --nx-content-disabled: #a8adb4;
   --nx-content-inverse: #ffffff;
-  --nx-content-on-accent: #04140b;
+  --nx-content-on-accent: #ffffff;
 
-  --nx-border-subtle: #ecedee;
-  --nx-border-default: #dcdee0;
-  --nx-border-strong: #b9bdc1;
+  --nx-border-subtle: #ebecee;
+  --nx-border-default: #dcdee1;
+  --nx-border-strong: #8a9099;
 
-  --nx-accent: #00a862;
-  --nx-accent-hover: #009355;
-  --nx-accent-active: #007a46;
-  --nx-accent-subtle: rgb(0 168 98 / 10%);
-  --nx-accent-muted: rgb(0 168 98 / 30%);
+  --nx-accent: #00794a;
+  --nx-accent-hover: #00683f;
+  --nx-accent-active: #005733;
+  --nx-accent-subtle: rgb(0 121 74 / 9%);
+  --nx-accent-muted: rgb(0 121 74 / 36%);
 
-  --nx-state-hover: rgb(0 0 0 / 5%);
-  --nx-state-active: rgb(0 0 0 / 9%);
-  --nx-state-selected: rgb(0 168 98 / 10%);
+  --nx-state-hover: rgb(13 14 17 / 5%);
+  --nx-state-active: rgb(13 14 17 / 9%);
+  --nx-state-selected: rgb(0 121 74 / 9%);
   --nx-state-focus-ring: var(--nx-accent);
   --nx-state-disabled-opacity: 0.5;
-  --nx-state-danger: #d32f2f;
-  --nx-state-success: #00a862;
-  --nx-state-warning: #b26a00;
-  --nx-state-info: #0b74c4;
+  --nx-state-danger: #c02626;
+  --nx-state-success: #00794a;
+  --nx-state-warning: #8a5a00;
+  --nx-state-info: #0b64ae;
 
   --nx-shadow-none: none;
-  --nx-shadow-sm: 0 1px 2px rgb(11 12 14 / 8%);
-  --nx-shadow-md: 0 4px 12px rgb(11 12 14 / 10%);
-  --nx-shadow-lg: 0 12px 32px rgb(11 12 14 / 12%);
+  --nx-shadow-sm: 0 1px 2px rgb(13 14 17 / 9%);
+  --nx-shadow-md: 0 6px 20px rgb(13 14 17 / 10%);
+  --nx-shadow-lg: 0 18px 48px rgb(13 14 17 / 13%);
 }

@@ -1,49 +1,50 @@
 /**
- * Noxra Neon — a higher-intensity accent treatment.
+ * Noxra Neon — the accent turned up.
  *
- * Same token contract as Void, pushed harder: brighter accent, tinted borders
- * and accent-coloured shadows. Only token values change; no component knows
- * this theme exists.
+ * Same contract as Void, pushed: a colder, deeper base, a fully saturated
+ * accent, accent-tinted borders and accent-tinted elevation. This is where the
+ * glow lives, so Void does not have to.
  */
 
 [data-nx-theme='neon'] {
   color-scheme: dark;
 
-  --nx-surface-base: #04060a;
-  --nx-surface-sunken: #020407;
-  --nx-surface-raised: #0a0f16;
-  --nx-surface-overlay: #101822;
-  --nx-surface-inverse: #f0fff8;
+  --nx-surface-sunken: #01040a;
+  --nx-surface-base: #04070e;
+  --nx-surface-raised: #0a0f18;
+  --nx-surface-overlay: #101724;
+  --nx-surface-inverse: #eafff6;
 
-  --nx-content-primary: #eafff5;
-  --nx-content-secondary: #93b8ab;
-  --nx-content-tertiary: #5f7d72;
-  --nx-content-disabled: #3f544c;
-  --nx-content-inverse: #04060a;
-  --nx-content-on-accent: #00140a;
+  --nx-content-primary: #eafff6;
+  --nx-content-secondary: #93b5aa;
+  --nx-content-tertiary: #74918a;
+  --nx-content-disabled: #41544e;
+  --nx-content-inverse: #04070e;
+  --nx-content-on-accent: #001409;
 
-  --nx-border-subtle: #12211b;
-  --nx-border-default: #1e3a2e;
-  --nx-border-strong: #2f5c48;
+  --nx-border-subtle: #10201b;
+  --nx-border-default: #1d3830;
+  --nx-border-strong: #4d7a6c;
 
   --nx-accent: #00ffa3;
-  --nx-accent-hover: #4dffbe;
+  --nx-accent-hover: #5cffc2;
   --nx-accent-active: #00d488;
-  --nx-accent-subtle: rgb(0 255 163 / 16%);
-  --nx-accent-muted: rgb(0 255 163 / 42%);
+  --nx-accent-subtle: rgb(0 255 163 / 15%);
+  --nx-accent-muted: rgb(0 255 163 / 45%);
 
-  --nx-state-hover: rgb(0 255 163 / 8%);
-  --nx-state-active: rgb(0 255 163 / 14%);
+  --nx-state-hover: rgb(0 255 163 / 9%);
+  --nx-state-active: rgb(0 255 163 / 15%);
   --nx-state-selected: rgb(0 255 163 / 18%);
   --nx-state-focus-ring: var(--nx-accent);
   --nx-state-disabled-opacity: 0.4;
-  --nx-state-danger: #ff4d6d;
+  --nx-state-danger: #ff7a8d;
   --nx-state-success: #00ffa3;
   --nx-state-warning: #ffd166;
-  --nx-state-info: #4dd8ff;
+  --nx-state-info: #6fdcff;
 
+  /* The one place Noxra allows a glow, because this theme is the reason it exists. */
   --nx-shadow-none: none;
   --nx-shadow-sm: 0 1px 2px rgb(0 0 0 / 70%);
-  --nx-shadow-md: 0 4px 16px rgb(0 255 163 / 10%);
-  --nx-shadow-lg: 0 12px 40px rgb(0 255 163 / 14%);
+  --nx-shadow-md: 0 6px 24px rgb(0 255 163 / 9%);
+  --nx-shadow-lg: 0 18px 56px rgb(0 255 163 / 13%);
 }

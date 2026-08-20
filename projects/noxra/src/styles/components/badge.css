@@ -27,9 +27,19 @@
   font-size: calc(var(--nx-font-size-xs) * 0.9);
 }
 
+/*
+ * The neutral fill is `--nx-state-hover` rather than a surface token.
+ *
+ * A badge sits *on* an unknown surface - page, card, dialog - so it needs a
+ * fill relative to its parent, not an absolute one. `--nx-surface-overlay` is
+ * absolute, and on the light theme it resolves to the same white as the card
+ * behind it, leaving the badge invisible. `--nx-state-hover` is the contract's
+ * translucent neutral veil: it lifts on dark themes, recedes on light ones,
+ * and composites correctly over whatever it lands on.
+ */
 .nx-badge[data-variant='neutral'] {
-  border-color: var(--nx-border-default);
-  background-color: var(--nx-surface-overlay);
+  border-color: var(--nx-border-subtle);
+  background-color: var(--nx-state-hover);
   color: var(--nx-content-secondary);
 }
 

@@ -75,6 +75,7 @@ export const NX_TOKEN_GROUPS = {
     '--nx-font-size-md',
     '--nx-font-size-lg',
     '--nx-font-size-xl',
+    '--nx-font-size-2xl',
     '--nx-font-weight-regular',
     '--nx-font-weight-medium',
     '--nx-font-weight-semibold',
