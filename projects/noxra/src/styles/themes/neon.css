@@ -1,0 +1,49 @@
+/**
+ * Noxra Neon — a higher-intensity accent treatment.
+ *
+ * Same token contract as Void, pushed harder: brighter accent, tinted borders
+ * and accent-coloured shadows. Only token values change; no component knows
+ * this theme exists.
+ */
+
+[data-nx-theme='neon'] {
+  color-scheme: dark;
+
+  --nx-surface-base: #04060a;
+  --nx-surface-sunken: #020407;
+  --nx-surface-raised: #0a0f16;
+  --nx-surface-overlay: #101822;
+  --nx-surface-inverse: #f0fff8;
+
+  --nx-content-primary: #eafff5;
+  --nx-content-secondary: #93b8ab;
+  --nx-content-tertiary: #5f7d72;
+  --nx-content-disabled: #3f544c;
+  --nx-content-inverse: #04060a;
+  --nx-content-on-accent: #00140a;
+
+  --nx-border-subtle: #12211b;
+  --nx-border-default: #1e3a2e;
+  --nx-border-strong: #2f5c48;
+
+  --nx-accent: #00ffa3;
+  --nx-accent-hover: #4dffbe;
+  --nx-accent-active: #00d488;
+  --nx-accent-subtle: rgb(0 255 163 / 16%);
+  --nx-accent-muted: rgb(0 255 163 / 42%);
+
+  --nx-state-hover: rgb(0 255 163 / 8%);
+  --nx-state-active: rgb(0 255 163 / 14%);
+  --nx-state-selected: rgb(0 255 163 / 18%);
+  --nx-state-focus-ring: var(--nx-accent);
+  --nx-state-disabled-opacity: 0.4;
+  --nx-state-danger: #ff4d6d;
+  --nx-state-success: #00ffa3;
+  --nx-state-warning: #ffd166;
+  --nx-state-info: #4dd8ff;
+
+  --nx-shadow-none: none;
+  --nx-shadow-sm: 0 1px 2px rgb(0 0 0 / 70%);
+  --nx-shadow-md: 0 4px 16px rgb(0 255 163 / 10%);
+  --nx-shadow-lg: 0 12px 40px rgb(0 255 163 / 14%);
+}

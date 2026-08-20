@@ -1,0 +1,162 @@
+/**
+ * Button — `<button nxButton>` / `<a nxButton>`.
+ *
+ * Applied by the `NxButton` directive to a native element. Noxra adds no
+ * wrapper elements, so this is a plain global stylesheet rather than a
+ * view-encapsulated component style. See docs/decisions/0001-styling-architecture.md.
+ *
+ * `--_nx-*` properties are private component internals, not public API.
+ */
+
+.nx-button {
+  --_nx-button-height: 36px;
+  --_nx-button-padding-inline: var(--nx-space-4);
+  --_nx-button-font-size: var(--nx-font-size-sm);
+  --_nx-button-indicator: var(--nx-content-primary);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nx-space-2);
+  box-sizing: border-box;
+  block-size: var(--_nx-button-height);
+  padding-inline: var(--_nx-button-padding-inline);
+  border: 1px solid transparent;
+  border-radius: var(--nx-radius-md);
+  background-color: transparent;
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--_nx-button-font-size);
+  font-weight: var(--nx-font-weight-medium);
+  line-height: var(--nx-line-height-tight);
+  letter-spacing: var(--nx-letter-spacing-normal);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--nx-duration-fast) var(--nx-easing-standard),
+    border-color var(--nx-duration-fast) var(--nx-easing-standard),
+    color var(--nx-duration-fast) var(--nx-easing-standard),
+    scale var(--nx-duration-instant) var(--nx-easing-standard);
+}
+
+.nx-button:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+/* ------------------------------------------------------------------- sizes */
+
+.nx-button[data-size='sm'] {
+  --_nx-button-height: 28px;
+  --_nx-button-padding-inline: var(--nx-space-3);
+  --_nx-button-font-size: var(--nx-font-size-xs);
+}
+
+.nx-button[data-size='lg'] {
+  --_nx-button-height: 44px;
+  --_nx-button-padding-inline: var(--nx-space-5);
+  --_nx-button-font-size: var(--nx-font-size-md);
+}
+
+/* ---------------------------------------------------------------- variants */
+
+.nx-button[data-variant='solid'] {
+  --_nx-button-indicator: var(--nx-content-on-accent);
+
+  background-color: var(--nx-accent);
+  color: var(--nx-content-on-accent);
+}
+
+.nx-button[data-variant='outline'] {
+  border-color: var(--nx-border-default);
+  color: var(--nx-content-primary);
+}
+
+.nx-button[data-variant='ghost'] {
+  color: var(--nx-content-secondary);
+}
+
+/* --------------------------------------------------------- interactive states
+ * `.nx-button--enabled` is set by the directive whenever the control is
+ * neither disabled nor busy, so hover/active styling never needs to repeat a
+ * `:not(:disabled):not([aria-disabled='true'])` chain.
+ */
+
+.nx-button--enabled[data-variant='solid']:hover {
+  background-color: var(--nx-accent-hover);
+}
+
+.nx-button--enabled[data-variant='solid']:active {
+  background-color: var(--nx-accent-active);
+}
+
+.nx-button--enabled[data-variant='outline']:hover {
+  border-color: var(--nx-border-strong);
+  background-color: var(--nx-state-hover);
+}
+
+.nx-button--enabled[data-variant='outline']:active {
+  background-color: var(--nx-state-active);
+}
+
+.nx-button--enabled[data-variant='ghost']:hover {
+  background-color: var(--nx-state-hover);
+  color: var(--nx-content-primary);
+}
+
+.nx-button--enabled[data-variant='ghost']:active {
+  background-color: var(--nx-state-active);
+}
+
+.nx-button--enabled:active {
+  scale: var(--nx-scale-press);
+}
+
+/* ---------------------------------------------------------------- disabled */
+
+.nx-button:disabled,
+.nx-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+/*
+ * A natively disabled <button> is already inert to the browser. `aria-disabled`
+ * is not, so pointer activation has to be blocked here - this is half of the
+ * button's activation guard, the other half being the keydown handler in
+ * `button.ts`. Trading the `not-allowed` / `progress` cursor for a guarantee
+ * that does not depend on listener ordering is the right way round.
+ */
+.nx-button[aria-disabled='true'] {
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------------- loading
+ * The indicator is a pseudo-element, so a loading button still emits exactly
+ * one DOM node. `color: transparent` hides the label without disturbing
+ * layout, which keeps the button's width stable across the loading transition.
+ */
+
+.nx-button[data-loading] {
+  color: transparent;
+  cursor: progress;
+}
+
+.nx-button[data-loading]::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 1em;
+  block-size: 1em;
+  margin-block-start: -0.5em;
+  margin-inline-start: -0.5em;
+  border: 2px solid var(--nx-border-strong);
+  border-block-start-color: var(--_nx-button-indicator);
+  border-radius: var(--nx-radius-full);
+  animation: nx-spin var(--nx-duration-loop) var(--nx-easing-loop) infinite;
+}

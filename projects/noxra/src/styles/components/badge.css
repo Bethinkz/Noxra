@@ -1,0 +1,45 @@
+﻿/**
+ * Badge â€” `<span nxBadge>`.
+ *
+ * A label, not a control: no focus handling, no interaction states.
+ */
+
+.nx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nx-space-1);
+  box-sizing: border-box;
+  padding-block: 2px;
+  padding-inline: var(--nx-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--nx-radius-full);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+  font-weight: var(--nx-font-weight-medium);
+  line-height: var(--nx-line-height-tight);
+  letter-spacing: var(--nx-letter-spacing-wide);
+  white-space: nowrap;
+}
+
+.nx-badge[data-size='sm'] {
+  padding-block: 1px;
+  padding-inline: var(--nx-space-1);
+  font-size: calc(var(--nx-font-size-xs) * 0.9);
+}
+
+.nx-badge[data-variant='neutral'] {
+  border-color: var(--nx-border-default);
+  background-color: var(--nx-surface-overlay);
+  color: var(--nx-content-secondary);
+}
+
+.nx-badge[data-variant='accent'] {
+  border-color: var(--nx-accent-muted);
+  background-color: var(--nx-accent-subtle);
+  color: var(--nx-accent);
+}
+
+.nx-badge[data-variant='outline'] {
+  border-color: var(--nx-border-strong);
+  color: var(--nx-content-primary);
+}

@@ -1,0 +1,32 @@
+/**
+ * Noxra — complete stylesheet.
+ *
+ * Import this once at the application level:
+ *
+ *   angular.json  ->  "styles": ["@noxra/ui/styles/noxra.css", "src/styles.css"]
+ *   or            ->  @import '@noxra/ui/styles/noxra.css';
+ *
+ * Every file below is also published individually, so an application that
+ * only wants the token contract, or only a subset of components, can compose
+ * its own bundle. The source tree and the published tree have identical
+ * layouts, so these relative paths are the same in both.
+ */
+
+/* Contract first: structural tokens and their reduced-motion behaviour. */
+@import './tokens.css';
+
+/* Themes assign the visual tokens. Void also binds to `:root` as the default. */
+@import './themes/void.css';
+@import './themes/mono.css';
+@import './themes/neon.css';
+@import './themes/light.css';
+
+/* Shared primitives (visually-hidden utility, shared keyframes). */
+@import './base.css';
+
+/* Components consume tokens only. */
+@import './components/button.css';
+@import './components/input.css';
+@import './components/card.css';
+@import './components/badge.css';
+@import './components/spinner.css';

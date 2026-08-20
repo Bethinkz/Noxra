@@ -1,0 +1,48 @@
+/**
+ * Noxra Mono — pure monochrome.
+ *
+ * Demonstrates that a theme can remove the accent hue entirely without any
+ * component change: the accent tokens simply resolve to greys.
+ */
+
+[data-nx-theme='mono'] {
+  color-scheme: dark;
+
+  --nx-surface-base: #000000;
+  --nx-surface-sunken: #000000;
+  --nx-surface-raised: #0d0d0d;
+  --nx-surface-overlay: #141414;
+  --nx-surface-inverse: #ffffff;
+
+  --nx-content-primary: #ffffff;
+  --nx-content-secondary: #a3a3a3;
+  --nx-content-tertiary: #737373;
+  --nx-content-disabled: #4d4d4d;
+  --nx-content-inverse: #000000;
+  --nx-content-on-accent: #000000;
+
+  --nx-border-subtle: #171717;
+  --nx-border-default: #262626;
+  --nx-border-strong: #404040;
+
+  --nx-accent: #ffffff;
+  --nx-accent-hover: #e5e5e5;
+  --nx-accent-active: #cccccc;
+  --nx-accent-subtle: rgb(255 255 255 / 10%);
+  --nx-accent-muted: rgb(255 255 255 / 28%);
+
+  --nx-state-hover: rgb(255 255 255 / 7%);
+  --nx-state-active: rgb(255 255 255 / 12%);
+  --nx-state-selected: rgb(255 255 255 / 12%);
+  --nx-state-focus-ring: var(--nx-accent);
+  --nx-state-disabled-opacity: 0.4;
+  --nx-state-danger: #e5e5e5;
+  --nx-state-success: #ffffff;
+  --nx-state-warning: #d4d4d4;
+  --nx-state-info: #bfbfbf;
+
+  --nx-shadow-none: none;
+  --nx-shadow-sm: 0 1px 2px rgb(0 0 0 / 80%);
+  --nx-shadow-md: 0 4px 12px rgb(0 0 0 / 75%);
+  --nx-shadow-lg: 0 12px 32px rgb(0 0 0 / 80%);
+}

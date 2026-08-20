@@ -1,0 +1,58 @@
+/**
+ * Noxra Void — the default dark theme.
+ *
+ * Void is applied to `:root` so Noxra is themed out of the box, and is also
+ * addressable as `[data-nx-theme='void']` so it can be re-selected at runtime.
+ *
+ * Colour values here are deliberately provisional. This milestone establishes
+ * the token architecture, not the final visual identity.
+ */
+
+:root,
+[data-nx-theme='void'] {
+  color-scheme: dark;
+
+  /* --------------------------------------------------------------- surface */
+  --nx-surface-base: #08090a;
+  --nx-surface-sunken: #050506;
+  --nx-surface-raised: #0f1113;
+  --nx-surface-overlay: #16181a;
+  --nx-surface-inverse: #f5f6f7;
+
+  /* --------------------------------------------------------------- content */
+  --nx-content-primary: #f5f6f7;
+  --nx-content-secondary: #a2a6ab;
+  --nx-content-tertiary: #6d7276;
+  --nx-content-disabled: #4a4e52;
+  --nx-content-inverse: #08090a;
+  --nx-content-on-accent: #04140b;
+
+  /* ---------------------------------------------------------------- border */
+  --nx-border-subtle: #1a1d20;
+  --nx-border-default: #26292d;
+  --nx-border-strong: #3b3f44;
+
+  /* ---------------------------------------------------------------- accent */
+  --nx-accent: #41f59b;
+  --nx-accent-hover: #63f7b0;
+  --nx-accent-active: #2ad97e;
+  --nx-accent-subtle: rgb(65 245 155 / 12%);
+  --nx-accent-muted: rgb(65 245 155 / 32%);
+
+  /* ----------------------------------------------------------------- state */
+  --nx-state-hover: rgb(255 255 255 / 6%);
+  --nx-state-active: rgb(255 255 255 / 10%);
+  --nx-state-selected: rgb(65 245 155 / 12%);
+  --nx-state-focus-ring: var(--nx-accent);
+  --nx-state-disabled-opacity: 0.45;
+  --nx-state-danger: #ff6b5f;
+  --nx-state-success: #41f59b;
+  --nx-state-warning: #ffc857;
+  --nx-state-info: #5ac8fa;
+
+  /* ---------------------------------------------------------------- shadow */
+  --nx-shadow-none: none;
+  --nx-shadow-sm: 0 1px 2px rgb(0 0 0 / 60%);
+  --nx-shadow-md: 0 4px 12px rgb(0 0 0 / 55%);
+  --nx-shadow-lg: 0 12px 32px rgb(0 0 0 / 60%);
+}

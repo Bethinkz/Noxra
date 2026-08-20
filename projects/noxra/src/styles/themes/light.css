@@ -1,0 +1,48 @@
+/**
+ * Noxra Light.
+ *
+ * Included to prove the token contract is not dark-only. Noxra's default
+ * experience is dark; light is a first-class alternative, not a fallback.
+ */
+
+[data-nx-theme='light'] {
+  color-scheme: light;
+
+  --nx-surface-base: #ffffff;
+  --nx-surface-sunken: #f4f5f6;
+  --nx-surface-raised: #ffffff;
+  --nx-surface-overlay: #ffffff;
+  --nx-surface-inverse: #0b0c0e;
+
+  --nx-content-primary: #0b0c0e;
+  --nx-content-secondary: #55595e;
+  --nx-content-tertiary: #7c8186;
+  --nx-content-disabled: #aeb2b6;
+  --nx-content-inverse: #ffffff;
+  --nx-content-on-accent: #04140b;
+
+  --nx-border-subtle: #ecedee;
+  --nx-border-default: #dcdee0;
+  --nx-border-strong: #b9bdc1;
+
+  --nx-accent: #00a862;
+  --nx-accent-hover: #009355;
+  --nx-accent-active: #007a46;
+  --nx-accent-subtle: rgb(0 168 98 / 10%);
+  --nx-accent-muted: rgb(0 168 98 / 30%);
+
+  --nx-state-hover: rgb(0 0 0 / 5%);
+  --nx-state-active: rgb(0 0 0 / 9%);
+  --nx-state-selected: rgb(0 168 98 / 10%);
+  --nx-state-focus-ring: var(--nx-accent);
+  --nx-state-disabled-opacity: 0.5;
+  --nx-state-danger: #d32f2f;
+  --nx-state-success: #00a862;
+  --nx-state-warning: #b26a00;
+  --nx-state-info: #0b74c4;
+
+  --nx-shadow-none: none;
+  --nx-shadow-sm: 0 1px 2px rgb(11 12 14 / 8%);
+  --nx-shadow-md: 0 4px 12px rgb(11 12 14 / 10%);
+  --nx-shadow-lg: 0 12px 32px rgb(11 12 14 / 12%);
+}

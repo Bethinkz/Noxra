@@ -1,0 +1,86 @@
+/**
+ * Input — `<input nxInput>`, `<textarea nxInput>`, `<select nxInput>`.
+ *
+ * Noxra styles the native control directly. There is no wrapper element, no
+ * floating-label machinery and no value accessor: Angular forms, native
+ * validation and plain DOM all keep working because nothing is intercepted.
+ */
+
+.nx-input {
+  --_nx-input-height: 36px;
+
+  box-sizing: border-box;
+  display: block;
+  inline-size: 100%;
+  block-size: var(--_nx-input-height);
+  padding-inline: var(--nx-space-3);
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-md);
+  background-color: var(--nx-surface-raised);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  line-height: var(--nx-line-height-normal);
+  transition:
+    border-color var(--nx-duration-fast) var(--nx-easing-standard),
+    background-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-input[data-size='sm'] {
+  --_nx-input-height: 28px;
+
+  font-size: var(--nx-font-size-xs);
+}
+
+.nx-input[data-size='lg'] {
+  --_nx-input-height: 44px;
+
+  font-size: var(--nx-font-size-md);
+}
+
+textarea.nx-input {
+  block-size: auto;
+  min-block-size: calc(var(--_nx-input-height) * 2);
+  padding-block: var(--nx-space-2);
+  resize: vertical;
+}
+
+.nx-input::placeholder {
+  color: var(--nx-content-tertiary);
+}
+
+.nx-input:hover:not(:disabled) {
+  border-color: var(--nx-border-strong);
+}
+
+.nx-input:disabled {
+  background-color: var(--nx-surface-sunken);
+  color: var(--nx-content-disabled);
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+/**
+ * Invalid state.
+ *
+ * Four hooks, zero coupling:
+ *   [data-invalid]        explicit Noxra input
+ *   [aria-invalid='true'] whatever set the ARIA state
+ *   :user-invalid         native constraint validation, after user interaction
+ *   .ng-invalid.ng-touched  Angular forms, via the classes it already emits
+ *
+ * The last one means Noxra integrates with Angular forms without importing
+ * `@angular/forms`. See docs/decisions/0006-forms-integration.md.
+ */
+.nx-input[data-invalid],
+.nx-input[aria-invalid='true'],
+.nx-input:user-invalid,
+.nx-input.ng-invalid.ng-touched {
+  border-color: var(--nx-state-danger);
+}
+
+/* Focus is an outline only, so it composes with the invalid border. */
+.nx-input:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}

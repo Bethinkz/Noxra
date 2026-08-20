@@ -1,0 +1,136 @@
+/**
+ * Noxra structural design tokens.
+ *
+ * This file owns the tokens that are NOT owned by a theme: radius, spacing,
+ * typography, motion, focus geometry and z-index. Themes own the visual tokens
+ * (surface, content, border, accent, state, shadow) — see `themes/`.
+ *
+ * Every token here is part of Noxra's public contract. Components must only
+ * consume `--nx-*` tokens; component-internal custom properties are prefixed
+ * `--_nx-*` and are NOT public API.
+ *
+ * Token parity between this contract and `lib/core/tokens/token-names.ts`
+ * is enforced by `tools/check-tokens.mjs`.
+ */
+
+:root {
+  /* ---------------------------------------------------------------- radius */
+  --nx-radius-none: 0;
+  --nx-radius-sm: 4px;
+  --nx-radius-md: 8px;
+  --nx-radius-lg: 12px;
+  --nx-radius-full: 9999px;
+
+  /* ----------------------------------------------------------------- space */
+  --nx-space-0: 0;
+  --nx-space-1: 4px;
+  --nx-space-2: 8px;
+  --nx-space-3: 12px;
+  --nx-space-4: 16px;
+  --nx-space-5: 20px;
+  --nx-space-6: 24px;
+  --nx-space-8: 32px;
+
+  /* ------------------------------------------------------------ typography */
+  --nx-font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --nx-font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --nx-font-size-xs: 0.75rem;
+  --nx-font-size-sm: 0.875rem;
+  --nx-font-size-md: 1rem;
+  --nx-font-size-lg: 1.125rem;
+  --nx-font-size-xl: 1.25rem;
+  --nx-font-weight-regular: 400;
+  --nx-font-weight-medium: 500;
+  --nx-font-weight-semibold: 600;
+  --nx-line-height-tight: 1.2;
+  --nx-line-height-normal: 1.5;
+  --nx-letter-spacing-tight: -0.01em;
+  --nx-letter-spacing-normal: 0em;
+  --nx-letter-spacing-wide: 0.04em;
+
+  /* ----------------------------------------------------------------- focus */
+  --nx-focus-ring-width: 2px;
+  --nx-focus-ring-offset: 2px;
+
+  /* ---------------------------------------------------------------- motion */
+  --nx-duration-instant: 60ms;
+  --nx-duration-fast: 120ms;
+  --nx-duration-normal: 200ms;
+  --nx-duration-slow: 320ms;
+
+  --nx-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --nx-easing-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --nx-easing-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --nx-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+
+  /*
+   * Looping motion (spinners, progress, pulses). Continuous status indicators
+   * must keep indicating under reduced motion, so they get their own pair of
+   * tokens: reduced motion slows the loop and makes it step rather than
+   * removing it. Never drive a loop from `--nx-duration-*`.
+   */
+  --nx-duration-loop: 800ms;
+  --nx-easing-loop: linear;
+
+  --nx-distance-micro: 2px;
+  --nx-distance-small: 4px;
+  --nx-distance-medium: 8px;
+
+  --nx-scale-enter: 0.98;
+  --nx-scale-press: 0.97;
+
+  /* --------------------------------------------------------------- z-index */
+  --nx-z-base: 0;
+  --nx-z-dropdown: 1000;
+  --nx-z-sticky: 1100;
+  --nx-z-overlay: 1200;
+  --nx-z-modal: 1300;
+  --nx-z-popover: 1400;
+  --nx-z-toast: 1500;
+  --nx-z-tooltip: 1600;
+}
+
+/**
+ * Reduced motion.
+ *
+ * Because every Noxra animation reads its duration, distance and scale from a
+ * motion token, neutralising the tokens disables motion library-wide. No
+ * component needs its own `prefers-reduced-motion` rule.
+ *
+ * Durations collapse to 1ms rather than 0ms so that `transitionend` /
+ * `animationend` listeners still fire and state machines do not stall.
+ *
+ * `[data-nx-motion]` lets an application override the system preference in
+ * either direction; see `NxMotionService`.
+ */
+:root[data-nx-motion='reduced'] {
+  --nx-duration-instant: 1ms;
+  --nx-duration-fast: 1ms;
+  --nx-duration-normal: 1ms;
+  --nx-duration-slow: 1ms;
+  --nx-distance-micro: 0px;
+  --nx-distance-small: 0px;
+  --nx-distance-medium: 0px;
+  --nx-scale-enter: 1;
+  --nx-scale-press: 1;
+  --nx-duration-loop: 1600ms;
+  --nx-easing-loop: steps(8, end);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-nx-motion='full']) {
+    --nx-duration-instant: 1ms;
+    --nx-duration-fast: 1ms;
+    --nx-duration-normal: 1ms;
+    --nx-duration-slow: 1ms;
+    --nx-distance-micro: 0px;
+    --nx-distance-small: 0px;
+    --nx-distance-medium: 0px;
+    --nx-scale-enter: 1;
+    --nx-scale-press: 1;
+    --nx-duration-loop: 1600ms;
+    --nx-easing-loop: steps(8, end);
+  }
+}

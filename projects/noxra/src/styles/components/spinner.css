@@ -1,0 +1,31 @@
+/**
+ * Spinner — `<span nxSpinner>`.
+ *
+ * Exists to validate the looping-motion tokens. A spinner is a continuous
+ * status indicator, so reduced motion slows and steps it rather than stopping
+ * it — handled entirely by `--nx-duration-loop` / `--nx-easing-loop`, so this
+ * file contains no media query of its own.
+ */
+
+.nx-spinner {
+  display: inline-block;
+  box-sizing: border-box;
+  inline-size: 1em;
+  block-size: 1em;
+  border: 2px solid var(--nx-border-strong);
+  border-block-start-color: var(--nx-accent);
+  border-radius: var(--nx-radius-full);
+  animation: nx-spin var(--nx-duration-loop) var(--nx-easing-loop) infinite;
+}
+
+.nx-spinner[data-size='sm'] {
+  font-size: var(--nx-font-size-sm);
+}
+
+.nx-spinner[data-size='md'] {
+  font-size: var(--nx-font-size-lg);
+}
+
+.nx-spinner[data-size='lg'] {
+  font-size: calc(var(--nx-font-size-xl) * 1.6);
+}
