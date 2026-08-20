@@ -34,6 +34,19 @@ A primitive belongs here when all of the following hold.
    `@angular/cdk` — see `docs/decisions/0004-aria-and-cdk-strategy.md`.
 5. It has no opinion about how it looks and emits no DOM of its own.
 
-Expected first residents, once the components that need them exist: dismissal
-(outside pointer / Escape), roving focus for composite widgets, and an overlay
-positioning primitive for Dialog, Popover and Select.
+## Check Angular Aria before writing anything here
+
+`@angular/aria` ships headless behaviour for accordion, combobox, grid,
+listbox, menu, tabs, toolbar and tree, plus `ListNavigation`, `ListSelection`,
+`ListTypeahead`, `ListFocus`, `GridFocus` and `KeyboardEventManager` — each
+behind its own entry point, each with a testing harness, maintained by the
+Angular team and released in lockstep with Angular.
+
+That covers most of what this directory was originally expected to hold.
+Building a Noxra version of any of it would be reimplementation, not
+architecture. See
+[docs/decisions/0004-aria-and-cdk-strategy.md](../../../../../docs/decisions/0004-aria-and-cdk-strategy.md).
+
+What is plausibly left is behaviour that is genuinely Noxra's own: dismissal
+policy (outside pointer / Escape) shared across overlays, and whatever glue the
+DOM philosophy demands that a general-purpose library would not provide.

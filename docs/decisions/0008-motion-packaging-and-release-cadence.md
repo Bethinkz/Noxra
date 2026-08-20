@@ -38,12 +38,22 @@ dependency choice, not a packaging choice.
 The guarantee that a lagging dependency cannot block a core release comes from
 three rules, in this order:
 
-**1. Core may not depend on anything carrying an Angular peer range.**
-Already mechanically enforced: `tools/check-package.mjs` reads the built bundle
-and fails on any import that is not a declared peer dependency or `tslib`. That
-is an allowlist, not a denylist, so core cannot acquire a lagging dependency by
-accident — only by someone editing `peerDependencies`, which is visible in
-review.
+**1. Core may not depend on anything that can lag Angular.**
+
+The test is _who releases it_, not whether it declares a peer range. A package
+released in lockstep by the Angular team — `@angular/cdk`, `@angular/aria` —
+ships on the same day Angular does and cannot delay a Noxra release, even
+though it carries an Angular peer range. A community package with the same peer
+range can, and is what this rule excludes.
+
+Mechanically enforced: `tools/check-package.mjs` reads the built bundle and
+fails on any import that is not a declared peer dependency or `tslib`. That is
+an allowlist, not a denylist, so core cannot acquire a dependency by accident —
+only by someone editing `peerDependencies`, which is visible in review.
+
+An earlier wording of this rule banned any Angular peer range outright, which
+would have contradicted [0004](0004-aria-and-cdk-strategy.md)'s permission to
+use CDK and Aria for genuinely complex behaviour. Corrected here.
 
 **2. When motion needs JavaScript, prefer things that structurally cannot lag.**
 In order: the Web Animations API and CSS (native, no version at all); Angular's
