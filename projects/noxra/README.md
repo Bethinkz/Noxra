@@ -2,8 +2,7 @@
 
 Angular-native UI library and design system.
 
-> **Early development.** Not published to npm. The API is unstable and the
-> visual design is placeholder. See the
+> **Early development.** Not published to npm and the API is unstable. See the
 > [workspace README](https://github.com/noxra/noxra) for status.
 
 ## Install

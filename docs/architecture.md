@@ -3,8 +3,10 @@
 Noxra is an Angular-native UI library and design system. This document explains
 how it is put together and, more importantly, why.
 
-Status: **foundation**. The architecture below is real and enforced; the visual
-design is placeholder.
+Status: **foundation, with a first visual pass**. The architecture below is
+real and enforced. The palette, type scale and motion values are real and
+contrast-checked; what is still absent is choreography — the entrance and exit
+motion that only arrives with overlays.
 
 ## The shape of the thing
 
@@ -149,7 +151,10 @@ Every component and service must work under CSR, SSR and hydration. The rules:
 3. **Reach the DOM through `DOCUMENT`.** `document.defaultView` instead of
    `window`.
 4. **Browser-only work goes in `afterNextRender()`**, which never runs on the
-   server, so no platform check is needed at the call site.
+   server, so no platform check is needed at the call site. For work triggered
+   on demand rather than at render time — `NxThemeService.setTheme()` can be
+   called at any moment — guard with `isPlatformBrowser` instead; there is no
+   render callback to hang it on.
 5. **Server and client must agree on initial output.** `NxMotionService`
    reports `systemPrefersReduced === false` on the server because the server
    genuinely cannot know — and the CSS media query corrects the appearance on

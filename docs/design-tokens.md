@@ -4,7 +4,9 @@ Noxra's design tokens are CSS custom properties. Components consume semantic
 token names; themes assign values to those names. No component ever names a
 colour.
 
-Values in this milestone are placeholder. The **contract** is the deliverable.
+Both the contract and its values are real: the palette, type scale, radius and
+motion values are Noxra's actual identity, and `npm run check:contrast` holds
+every theme to WCAG AA.
 
 ## Semantic, not literal
 

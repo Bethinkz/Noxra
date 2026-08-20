@@ -151,8 +151,10 @@ bootstrapApplication(App, {
 ## Not in this milestone
 
 Data Table, Date Picker, Calendar, Tree, Select, Combobox, Command Palette,
-file upload, charts, overlays and dialogs — and the real visual design. The
-architecture exists so those can be built correctly, not quickly.
+file upload, charts, overlays and dialogs. Also motion choreography: the
+motion _system_ is in place, but entrance and exit sequences only become real
+once there are overlays to sequence. The architecture exists so those can be
+built correctly, not quickly.
 
 ## Licence
 
