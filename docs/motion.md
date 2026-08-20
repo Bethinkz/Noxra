@@ -79,6 +79,52 @@ This is why `--nx-duration-loop` exists separately. Never drive a loop from
 `--nx-duration-*`: those collapse to `1ms`, which would turn a spinner into a
 strobe.
 
+## Intensity
+
+How much motion, when motion is on at all. Three settings, `medium` by default.
+
+| Intensity | Durations              | Distances    | Scales      |
+| --------- | ---------------------- | ------------ | ----------- |
+| `low`     | 50 / 90 / 140 / 220ms  | 1 / 2 / 4px  | 0.995, 0.99 |
+| `medium`  | 70 / 130 / 210 / 340ms | 2 / 4 / 8px  | 0.98, 0.97  |
+| `high`    | 90 / 180 / 300 / 480ms | 3 / 8 / 16px | 0.95, 0.94  |
+
+```ts
+const motion = inject(NxMotionService);
+motion.setIntensity('high');
+motion.intensity(); // signal
+```
+
+Or at bootstrap:
+
+```ts
+provideNoxra({ motionIntensity: 'low' });
+```
+
+Like the theme, it is one attribute on `<html>` — `data-nx-motion-intensity` —
+and `medium` is the _absence_ of that attribute rather than a third value, the
+same way `system` is for the preference below. No component knows the setting
+exists; intensity is expressed entirely in token values.
+
+`--nx-duration-loop` is deliberately not scaled. A spinner is a status
+indicator, and how fast it turns is not a matter of taste.
+
+### Intensity is not reduced motion
+
+They are separate axes, and conflating them would be an accessibility bug.
+Intensity is taste; reduced motion is a requirement. **Reduced motion always
+wins**, whatever the intensity — an application set to `high` with a user who
+asked for less motion gets less motion.
+
+Mechanically that comes down to source order: the intensity rules and the
+reduced-motion rules carry the same specificity, so the reduced-motion blocks
+are placed after them in `tokens.css`. That is fragile enough to be worth a
+test, and there is one — a browser test sets `high`, then `reduced`, and
+asserts the computed duration is `1ms`.
+
+Setting intensity while motion is reduced still records the preference. It
+simply has no effect until the requirement no longer applies.
+
 ## Application override
 
 `prefers-reduced-motion` is the default, but an application may need its own

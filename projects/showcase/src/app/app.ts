@@ -4,6 +4,7 @@ import {
   NX_BUILT_IN_THEMES,
   NxMotionService,
   NxThemeService,
+  type NxMotionIntensity,
   type NxMotionPreference,
   type NxThemeName,
 } from '@noxra/ui';
@@ -30,9 +31,11 @@ export class App {
     'reduced',
     'full',
   ];
+  protected readonly motionIntensities: readonly NxMotionIntensity[] = ['low', 'medium', 'high'];
 
   protected readonly theme = this.themeService.theme;
   protected readonly motion = this.motionService.preference;
+  protected readonly intensity = this.motionService.intensity;
   protected readonly reducedMotion = this.motionService.reduced;
 
   protected readonly nav: readonly NavItem[] = [
@@ -52,5 +55,9 @@ export class App {
 
   protected setMotion(value: string): void {
     this.motionService.setPreference(value as NxMotionPreference);
+  }
+
+  protected setIntensity(value: string): void {
+    this.motionService.setIntensity(value as NxMotionIntensity);
   }
 }

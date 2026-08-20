@@ -46,7 +46,25 @@
         </select>
       </label>
 
-      <p class="control-note">Resolved: motion is {{ reducedMotion() ? 'reduced' : 'full' }}</p>
+      <label class="control">
+        <span class="control-label">Intensity</span>
+        <select
+          class="control-field"
+          [value]="intensity()"
+          (change)="setIntensity($any($event.target).value)"
+        >
+          @for (level of motionIntensities; track level) {
+            <option [value]="level">{{ level }}</option>
+          }
+        </select>
+      </label>
+
+      <p class="control-note">
+        Resolved: motion is {{ reducedMotion() ? 'reduced' : intensity() }}
+        @if (reducedMotion() && intensity() !== 'medium') {
+          <br />Intensity is ignored while motion is reduced.
+        }
+      </p>
     </div>
   </aside>
 

@@ -107,6 +107,53 @@
 }
 
 /**
+ * Motion intensity.
+ *
+ * A taste dial, separate from the accessibility one. `--nx-duration-*` and the
+ * distances above are the medium setting; `low` shortens and shrinks them,
+ * `high` opens them up. Nothing else changes: intensity is expressed purely in
+ * token values, so no component knows the setting exists.
+ *
+ * Medium is the absence of an attribute rather than a third value, the same
+ * way `system` is for the reduced-motion preference. That keeps the default
+ * path free of an attribute nobody set.
+ *
+ * These blocks sit *above* the reduced-motion rules on purpose. They carry the
+ * same specificity, so source order decides, and reduced motion has to win -
+ * intensity is a preference, reduced motion is an accessibility requirement.
+ *
+ * `--nx-duration-loop` is deliberately untouched. A spinner is a status
+ * indicator, and how fast it turns is not a matter of taste.
+ */
+:root[data-nx-motion-intensity='low'] {
+  --nx-duration-instant: 50ms;
+  --nx-duration-fast: 90ms;
+  --nx-duration-normal: 140ms;
+  --nx-duration-slow: 220ms;
+
+  --nx-distance-micro: 1px;
+  --nx-distance-small: 2px;
+  --nx-distance-medium: 4px;
+
+  --nx-scale-enter: 0.995;
+  --nx-scale-press: 0.99;
+}
+
+:root[data-nx-motion-intensity='high'] {
+  --nx-duration-instant: 90ms;
+  --nx-duration-fast: 180ms;
+  --nx-duration-normal: 300ms;
+  --nx-duration-slow: 480ms;
+
+  --nx-distance-micro: 3px;
+  --nx-distance-small: 8px;
+  --nx-distance-medium: 16px;
+
+  --nx-scale-enter: 0.95;
+  --nx-scale-press: 0.94;
+}
+
+/**
  * Reduced motion.
  *
  * Because every Noxra animation reads its duration, distance and scale from a

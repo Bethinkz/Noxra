@@ -9,10 +9,16 @@ import {
 } from '@angular/core';
 
 import { NOXRA_CONFIG } from '../noxra-config';
-import type { NxMotionPreference } from './motion.types';
+import type { NxMotionIntensity, NxMotionPreference } from './motion.types';
 
 /** Attribute the resolved motion preference is published on. */
 const MOTION_ATTRIBUTE = 'data-nx-motion';
+
+/** Attribute the motion intensity is published on. */
+const INTENSITY_ATTRIBUTE = 'data-nx-motion-intensity';
+
+/** Medium is the absence of an attribute, not a third value. */
+const DEFAULT_INTENSITY: NxMotionIntensity = 'medium';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
@@ -38,10 +44,21 @@ export class NxMotionService {
   private readonly config = inject(NOXRA_CONFIG, { optional: true });
 
   private readonly currentPreference = signal<NxMotionPreference>(this.config?.motion ?? 'system');
+  private readonly currentIntensity = signal<NxMotionIntensity>(
+    this.config?.motionIntensity ?? DEFAULT_INTENSITY,
+  );
   private readonly systemReduced = signal(false);
 
   /** The application's motion preference. */
   readonly preference = this.currentPreference.asReadonly();
+
+  /**
+   * How much motion, when motion is on.
+   *
+   * Independent of {@link reduced}: an application can be set to `high` and
+   * still be showing no motion, because the user asked for none.
+   */
+  readonly intensity = this.currentIntensity.asReadonly();
 
   /** Whether the OS reports a reduced-motion preference. Always `false` on the server. */
   readonly systemPrefersReduced = this.systemReduced.asReadonly();
@@ -59,6 +76,7 @@ export class NxMotionService {
 
   constructor() {
     this.applyPreference();
+    this.applyIntensity();
 
     afterNextRender(() => {
       const view = this.document.defaultView;
@@ -79,6 +97,30 @@ export class NxMotionService {
   setPreference(preference: NxMotionPreference): void {
     this.currentPreference.set(preference);
     this.applyPreference();
+  }
+
+  /**
+   * Set how much motion to use.
+   *
+   * Has no effect while motion is reduced - that is deliberate, not a bug.
+   * Reduced motion is a requirement and intensity is a preference, so the
+   * requirement wins and the preference is remembered for when it no longer
+   * applies.
+   */
+  setIntensity(intensity: NxMotionIntensity): void {
+    this.currentIntensity.set(intensity);
+    this.applyIntensity();
+  }
+
+  private applyIntensity(): void {
+    const root = this.document.documentElement;
+    const intensity = this.currentIntensity();
+
+    if (intensity === DEFAULT_INTENSITY) {
+      root.removeAttribute(INTENSITY_ATTRIBUTE);
+    } else {
+      root.setAttribute(INTENSITY_ATTRIBUTE, intensity);
+    }
   }
 
   private applyPreference(): void {

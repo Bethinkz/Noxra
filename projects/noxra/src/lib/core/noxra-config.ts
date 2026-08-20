@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
-import type { NxMotionPreference } from './motion/motion.types';
+import type { NxMotionIntensity, NxMotionPreference } from './motion/motion.types';
 import type { NxThemeName } from './theme/theme.types';
 
 /** Application-level Noxra configuration. */
@@ -10,6 +10,9 @@ export interface NoxraConfig {
 
   /** How motion resolves. Defaults to `'system'`. */
   readonly motion?: NxMotionPreference;
+
+  /** How much motion, when motion is on. Defaults to `'medium'`. */
+  readonly motionIntensity?: NxMotionIntensity;
 }
 
 /**

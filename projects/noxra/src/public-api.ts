@@ -25,6 +25,7 @@ export {
   type NxDistance,
   type NxDuration,
   type NxEasing,
+  type NxMotionIntensity,
   type NxMotionPreference,
 } from './lib/core/motion/motion.types';
 

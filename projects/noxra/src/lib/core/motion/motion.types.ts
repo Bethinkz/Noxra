@@ -23,3 +23,16 @@ export type NxDistance = 'micro' | 'small' | 'medium';
  * - `full`    opt out of reduced motion, e.g. behind a user preference
  */
 export type NxMotionPreference = 'system' | 'reduced' | 'full';
+
+/**
+ * How much motion, when motion is on at all.
+ *
+ * A separate axis from {@link NxMotionPreference}, and the distinction
+ * matters: intensity is taste, reduced motion is an accessibility requirement.
+ * Reduced motion always wins, whatever the intensity.
+ *
+ * - `low`     shorter, smaller — motion that stays out of the way
+ * - `medium`  the default
+ * - `high`    longer, more travel — motion as part of the personality
+ */
+export type NxMotionIntensity = 'low' | 'medium' | 'high';
