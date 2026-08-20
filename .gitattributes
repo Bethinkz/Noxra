@@ -1,4 +1,4 @@
-﻿# Keep LF in the working tree on every platform. Prettier is configured for LF,
+# Keep LF in the working tree on every platform. Prettier is configured for LF,
 # so without this a Windows clone with core.autocrlf=true fails `format:check`
 # on files nobody touched.
 * text=auto eol=lf
