@@ -26,12 +26,13 @@ not the current state.
 
 ## Index
 
-| #                                          | Decision                                              | Status   |
-| ------------------------------------------ | ----------------------------------------------------- | -------- |
-| [0001](0001-styling-architecture.md)       | Global token-driven CSS, no view encapsulation        | Accepted |
-| [0002](0002-entry-point-strategy.md)       | Single entry point, structured for splitting later    | Accepted |
-| [0003](0003-angular-dependency-policy.md)  | Minimal dependencies, public Angular APIs only        | Accepted |
-| [0004](0004-aria-and-cdk-strategy.md)      | Platform → Angular Aria → CDK, in that order          | Accepted |
-| [0005](0005-testing-strategy.md)           | Vitest, behaviour-level tests, contract checks in CI  | Accepted |
-| [0006](0006-forms-integration.md)          | Angular forms integration via CSS, with no dependency | Accepted |
-| [0007](0007-directive-first-components.md) | Components are directives on native elements          | Accepted |
+| #                                                    | Decision                                              | Status   |
+| ---------------------------------------------------- | ----------------------------------------------------- | -------- |
+| [0001](0001-styling-architecture.md)                 | Global token-driven CSS, no view encapsulation        | Accepted |
+| [0002](0002-entry-point-strategy.md)                 | Single entry point, structured for splitting later    | Accepted |
+| [0003](0003-angular-dependency-policy.md)            | Minimal dependencies, public Angular APIs only        | Accepted |
+| [0004](0004-aria-and-cdk-strategy.md)                | Platform → Angular Aria → CDK, in that order          | Accepted |
+| [0005](0005-testing-strategy.md)                     | Vitest, behaviour-level tests, contract checks in CI  | Accepted |
+| [0006](0006-forms-integration.md)                    | Angular forms integration via CSS, with no dependency | Accepted |
+| [0007](0007-directive-first-components.md)           | Components are directives on native elements          | Accepted |
+| [0008](0008-motion-packaging-and-release-cadence.md) | Motion stays in the core package, on one version      | Accepted |

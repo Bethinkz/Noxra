@@ -167,6 +167,19 @@ This is also the one place Noxra uses `!important`: the suppression has to
 outrank transitions declared by the consuming application, not just Noxra's
 own, and it is active for a single task.
 
+## Packaging
+
+Motion lives in `@noxra/ui`, on the same version as everything else. The rule
+that protects day-0 Angular support is a dependency rule, not a packaging one:
+core may not depend on anything carrying an Angular peer range, and
+`npm run check:package` enforces it by reading the built bundle.
+
+When choreography arrives it goes behind `@noxra/ui/motion` — same package,
+same version, tree-shakeable — so an unsupported dependency would cost one
+entry point rather than the release. See
+[0008-motion-packaging-and-release-cadence.md](decisions/0008-motion-packaging-and-release-cadence.md)
+for the reasoning and the triggers that would justify a separate package.
+
 ## Angular animations
 
 Noxra does not depend on `@angular/animations`. Motion is CSS, which keeps it

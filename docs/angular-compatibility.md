@@ -55,7 +55,11 @@ migrations; Noxra is already on the far side of that one.
 compiler change to alter output.
 
 **CSS-based motion.** No dependency on `@angular/animations`, so animation
-package changes cannot affect Noxra.
+package changes cannot affect Noxra. More generally, core may not depend on
+anything carrying an Angular peer range - motion is the most likely place such
+a dependency would appear, and
+[0008](decisions/0008-motion-packaging-and-release-cadence.md) records how that
+is kept out without splitting the package.
 
 ## What must be true before claiming a version
 
