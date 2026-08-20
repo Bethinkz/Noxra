@@ -1,0 +1,98 @@
+/**
+ * Tooltip — created by the `NxTooltip` directive.
+ *
+ * Positioning is entirely CSS. The trigger carries an `anchor-name` and the
+ * bubble a matching `position-anchor`; `position-area` picks the side and
+ * `position-try-fallbacks` lets the browser flip it when there is no room.
+ * No JavaScript measures anything, and no overlay dependency is involved.
+ *
+ * Where anchor positioning is unavailable the `@supports` block below keeps
+ * the tooltip legible and centred near the trigger's edge of the viewport
+ * rather than letting it land somewhere arbitrary. It is a worse tooltip, not
+ * a broken one.
+ */
+
+.nx-tooltip {
+  /* Popover UA styles are opinionated; start from nothing. */
+  position: fixed;
+  inset: auto;
+  z-index: var(--nx-z-tooltip);
+  max-inline-size: 260px;
+  margin: 0;
+  padding: var(--nx-space-1) var(--nx-space-2);
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-sm);
+  background-color: var(--nx-surface-overlay);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+  font-weight: var(--nx-font-weight-medium);
+  line-height: var(--nx-line-height-normal);
+  text-align: center;
+  overflow: visible;
+  box-shadow: var(--nx-shadow-md);
+
+  /* Closed state, and therefore the exit target. */
+  opacity: 0;
+  transition:
+    opacity var(--nx-duration-instant) var(--nx-easing-exit),
+    display var(--nx-duration-instant) allow-discrete,
+    overlay var(--nx-duration-instant) allow-discrete;
+}
+
+.nx-tooltip:popover-open {
+  opacity: 1;
+  transition:
+    opacity var(--nx-duration-fast) var(--nx-easing-enter),
+    display var(--nx-duration-fast) allow-discrete,
+    overlay var(--nx-duration-fast) allow-discrete;
+}
+
+@starting-style {
+  .nx-tooltip:popover-open {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------- positioning */
+
+@supports (position-area: block-start) {
+  .nx-tooltip {
+    position-area: block-start;
+    margin-block-end: var(--nx-space-1);
+
+    /* The browser picks another side when the preferred one does not fit. */
+    position-try-fallbacks: flip-block, flip-inline;
+  }
+
+  .nx-tooltip[data-placement='bottom'] {
+    position-area: block-end;
+    margin-block: var(--nx-space-1) 0;
+  }
+
+  .nx-tooltip[data-placement='left'] {
+    position-area: inline-start;
+    margin-inline-end: var(--nx-space-1);
+    position-try-fallbacks: flip-inline, flip-block;
+  }
+
+  .nx-tooltip[data-placement='right'] {
+    position-area: inline-end;
+    margin-inline-start: var(--nx-space-1);
+    position-try-fallbacks: flip-inline, flip-block;
+  }
+}
+
+/*
+ * Fallback for engines without anchor positioning. The tooltip is still in the
+ * top layer, readable, and dismissible - it simply sits at the bottom of the
+ * viewport instead of beside its trigger.
+ */
+@supports not (position-area: block-start) {
+  .nx-tooltip {
+    inset-block-end: var(--nx-space-4);
+    inset-inline: 0;
+    margin-inline: auto;
+    inline-size: fit-content;
+  }
+}

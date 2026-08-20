@@ -40,6 +40,7 @@ export {
 export { NxVisuallyHidden } from './lib/core/a11y/visually-hidden';
 
 export { type NxOrientation, type NxSize } from './lib/core/utilities/types';
+export { nxUniqueId } from './lib/core/utilities/unique-id';
 
 // ------------------------------------------------------------ components
 export { NxButton } from './lib/components/button/button';
@@ -62,6 +63,9 @@ export {
   NxDialogHeader,
 } from './lib/components/dialog/dialog';
 export { type NxDialogCloseReason, type NxDialogSize } from './lib/components/dialog/dialog.types';
+
+export { NxTooltip } from './lib/components/tooltip/tooltip';
+export { type NxTooltipPlacement } from './lib/components/tooltip/tooltip.types';
 
 export { NxAlertService } from './lib/components/alert/alert';
 export {

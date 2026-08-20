@@ -8,21 +8,33 @@ import {
   NxDialogFooter,
   NxDialogHeader,
   NxInput,
+  NxTooltip,
   type NxAlertTone,
 } from '@noxra/ui';
 
 @Component({
   selector: 'app-dialog-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NxButton, NxInput, NxBadge, NxDialog, NxDialogHeader, NxDialogBody, NxDialogFooter],
+  imports: [
+    NxButton,
+    NxInput,
+    NxBadge,
+    NxTooltip,
+    NxDialog,
+    NxDialogHeader,
+    NxDialogBody,
+    NxDialogFooter,
+  ],
   template: `
     <div class="page">
       <header>
-        <h1 class="page-title">Dialog &amp; Alert</h1>
+        <h1 class="page-title">Overlays</h1>
         <p class="page-lead">
-          Both are the native <code>&lt;dialog&gt;</code> element. The browser supplies focus
-          trapping, focus restoration, the top layer, the backdrop, Escape and <code>inert</code> on
-          everything behind — so Noxra needs no overlay dependency and cannot get those wrong.
+          Dialog, Alert and Tooltip all live in the browser's top layer, and none of them needs an
+          overlay dependency. Dialog and Alert are the native <code>&lt;dialog&gt;</code> element;
+          Tooltip is the Popover API positioned with CSS anchor positioning. Focus trapping, focus
+          restoration, Escape, <code>inert</code> and collision-aware placement are all the
+          browser's — which is why Noxra cannot get them wrong.
         </p>
       </header>
 
@@ -84,6 +96,31 @@ import {
       </section>
 
       <section class="section">
+        <h2 class="section-title">Tooltip</h2>
+        <p class="section-note">
+          Hover <em>or focus</em> — tab through these. A tooltip only reachable by pointer is
+          invisible to keyboard users. Placement is a preference: the browser flips it when there is
+          no room, via <code>position-try-fallbacks</code>, with no JavaScript measuring anything.
+        </p>
+        <div class="row">
+          @for (side of placements; track side) {
+            <button
+              nxButton
+              variant="outline"
+              size="sm"
+              nxTooltip="Placed {{ side }}"
+              [tooltipPlacement]="side"
+            >
+              {{ side }}
+            </button>
+          }
+        </div>
+        <p class="section-note">
+          The bubble is created on first show and reused, so a tooltip nobody hovers costs no DOM.
+        </p>
+      </section>
+
+      <section class="section">
         <h2 class="section-title">Imperative alerts</h2>
         <p class="section-note">
           One line at the call site, and the design matches because it is the same dialog reading
@@ -114,6 +151,7 @@ export class DialogPage {
   private readonly alerts = inject(NxAlertService);
 
   protected readonly tones: readonly NxAlertTone[] = ['neutral', 'accent', 'danger'];
+  protected readonly placements = ['top', 'bottom', 'left', 'right'] as const;
 
   /**
    * Held as a property rather than written inline: braces in a template are

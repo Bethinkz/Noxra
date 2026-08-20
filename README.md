@@ -21,22 +21,24 @@ Noxra is a UI library built for Angular rather than adapted to it.
 - **SSR-safe by construction**, and verified — the showcase prerenders every
   route on each build.
 - **Two peer dependencies and one runtime dependency**, enforced by a check
-  that reads the built bundle.
+  that reads the built bundle. Dialogs, alerts and tooltips are built on the
+  native `<dialog>`, the Popover API and CSS anchor positioning, so even the
+  overlays need no positioning library.
 - **No Tailwind, no CSS framework, no build step** for consumers.
 
 ## Status
 
-| Area                        | State                                              |
-| --------------------------- | -------------------------------------------------- |
-| Workspace, build, packaging | Working                                            |
-| Design tokens and theming   | 86 tokens, 4 themes, contract + WCAG AA enforced   |
-| Motion system               | Tokens, reduced-motion, looping motion             |
-| Components                  | Button, Input, Card, Badge, Spinner, Dialog, Alert |
-| Tests                       | 72 specs: jsdom, browser, SSR                      |
-| SSR                         | Prerender + per-request rendering, both verified   |
-| CI                          | GitHub Actions, with an Angular version matrix     |
-| Visual design               | Real palette, type scale and motion values         |
-| Published to npm            | No                                                 |
+| Area                        | State                                                       |
+| --------------------------- | ----------------------------------------------------------- |
+| Workspace, build, packaging | Working                                                     |
+| Design tokens and theming   | 86 tokens, 4 themes, contract + WCAG AA enforced            |
+| Motion system               | Tokens, reduced-motion, looping motion                      |
+| Components                  | Button, Input, Card, Badge, Spinner, Dialog, Alert, Tooltip |
+| Tests                       | 84 specs: jsdom, browser, SSR                               |
+| SSR                         | Prerender + per-request rendering, both verified            |
+| CI                          | GitHub Actions, with an Angular version matrix              |
+| Visual design               | Real palette, type scale and motion values                  |
+| Published to npm            | No                                                          |
 
 ## Requirements
 

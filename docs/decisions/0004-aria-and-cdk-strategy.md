@@ -74,9 +74,19 @@ Bad, and accepted:
 ## Notes
 
 **Do not reimplement CDK Overlay.** If a component needs anchored, collision-
-aware, scroll-aware positioning, use CDK. The one exception worth testing first
-is CSS anchor positioning plus the popover API, which may make a large part of
-this unnecessary — that evaluation belongs in the Dialog/Popover milestone.
+aware, scroll-aware positioning, use CDK.
+
+That evaluation has now been done, and the platform won for the first three
+cases. Modal dialogs need no positioning at all — the native `<dialog>` gives
+the top layer, focus trapping, focus restoration, `inert` and Escape. Tooltip
+needs anchored, collision-aware placement, and got it from the Popover API plus
+CSS anchor positioning: `anchor-name`, `position-anchor`, `position-area` and
+`position-try-fallbacks`, all confirmed present in Angular 22's browser
+targets and asserted by a browser test that measures where the bubble lands.
+
+What remains genuinely CDK-shaped is the _scroll-aware_ half: an overlay that
+must reposition inside a scrolling container, or survive virtual scrolling.
+Nothing here has needed that yet.
 
 **Do not reimplement focus trapping** without a very good reason. It is much
 harder than it looks.
