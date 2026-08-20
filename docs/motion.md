@@ -138,6 +138,35 @@ Prefer `translate`, `scale` and `rotate` as independent CSS properties over the
 `transform` shorthand, so separate concerns can animate without clobbering each
 other.
 
+## Theme switching and transitions
+
+A CSS transition whose value comes from a custom property **stalls when that
+property changes**. The browser pins the property at the value it held when the
+transition started, so a themed `background-color` keeps rendering the previous
+theme's colour until something unrelated invalidates it. Reloading hides it,
+which is why this class of bug survives demos and shows up in production.
+
+`NxThemeService` handles it: it sets `data-nx-theme-switching` on the document
+element, commits the new values, forces a layout flush, and clears the
+attribute on the next task. `styles/base.css` disables every transition while
+that attribute is present. The swap lands instantly and transitions resume
+immediately after.
+
+Two details that are not incidental:
+
+- **The restore is a timeout, not `requestAnimationFrame`.** A hidden or
+  backgrounded tab runs no animation frames, so an rAF restore never fires
+  there and the application is left with transitions disabled _forever_ —
+  exactly the case where the theme follows the system colour scheme and it
+  changes while the tab is in the background.
+- **The forced layout is what makes the timeout safe.** By the time the
+  attribute clears, the new values are already the current computed values, so
+  re-enabling transitions cannot start one retroactively.
+
+This is also the one place Noxra uses `!important`: the suppression has to
+outrank transitions declared by the consuming application, not just Noxra's
+own, and it is active for a single task.
+
 ## Angular animations
 
 Noxra does not depend on `@angular/animations`. Motion is CSS, which keeps it

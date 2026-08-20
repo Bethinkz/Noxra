@@ -71,7 +71,7 @@ The contract exists as CSS (`styles/`) and as TypeScript
 4. Every private `--_nx-*` property a stylesheet uses is declared in that same
    stylesheet.
 
-Currently: **85 tokens** — 53 structural, 32 theme-owned — across 4 themes.
+Currently: **86 tokens** — 54 structural, 32 theme-owned — across 4 themes.
 
 ## Public and private properties
 
@@ -106,6 +106,12 @@ scrollbars match.
 
 A theme change is one attribute write on `<html>`. No stylesheet swap, no
 re-render, no flash.
+
+Transitions are suppressed for the single task it takes to land, because a CSS
+transition reading a custom property stalls when that property changes — see
+[motion.md](motion.md#theme-switching-and-transitions). `NxThemeService` does
+this for you; applications changing `data-nx-theme` by hand need to do it
+themselves.
 
 ```ts
 import { NxThemeService } from '@noxra/ui';
@@ -184,3 +190,24 @@ ships only the themes and components it uses:
 3. Run `npm run check:tokens`.
 
 The check will tell you precisely what is missing and where.
+
+## Contrast is enforced, not reviewed
+
+`npm run check:contrast` asserts every foreground/background pair Noxra
+actually renders, in every theme, against WCAG 2.1 — 4.5:1 for text, 3:1 for
+non-text UI. Translucent fills are composited, not ignored, so an accent badge
+is measured as accent text on a 12%-alpha accent fill over the surface behind
+it.
+
+This is not ceremony. Building this milestone, it caught the light theme's
+accent at 3.10:1 as text, tertiary text below threshold in every theme, and
+`--nx-border-strong` at 1.89:1 while being the border that identifies a form
+control. Two tokens are consequently lighter than taste alone would make them:
+
+- `--nx-content-tertiary` holds 4.5:1, because it carries real text.
+- `--nx-border-strong` holds 3:1, because WCAG 1.4.11 treats a control's
+  boundary as information. `--nx-border-subtle` and `--nx-border-default` are
+  decorative and stay quiet.
+
+Disabled content is deliberately not checked — WCAG exempts it, and requiring
+contrast there would defeat the affordance.

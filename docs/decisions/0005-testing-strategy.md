@@ -36,11 +36,14 @@ rather than being poked onto an instance.
 change and teach people to re-record without reading. No coverage target. No
 tests of private methods.
 
-**Beyond unit tests.** Three checks in `npm run verify` catch classes of bug
+**Beyond unit tests.** Four checks in `npm run verify` catch classes of bug
 unit tests cannot:
 
 - `check:tokens` — CSS and TypeScript token contracts stay in sync, and no
   stylesheet references a token that does not exist.
+- `check:contrast` — every rendered colour pair meets WCAG AA in every theme,
+  with translucent fills composited. Colour regressions are invisible to unit
+  tests and to reviewers; they are not invisible to arithmetic.
 - `check:package` — the published package shape and dependency graph are
   correct.
 - `build:showcase` + `verify:ssr` — prerendering runs every route through

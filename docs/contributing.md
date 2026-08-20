@@ -77,6 +77,9 @@ These fail the build, so it is worth knowing them up front:
 
 - **No hard-coded colours, durations or easings.** Use tokens.
   `check:tokens` fails on any `var(--nx-*)` that is not a declared token.
+- **Contrast is enforced.** `check:contrast` fails if any rendered
+  foreground/background pair drops below WCAG AA, in any theme. Changing a
+  colour means re-running it.
 - **Every theme assigns every theme-owned token.** A partial theme is rejected.
 - **No `prefers-reduced-motion` media query in a component.** That is the
   motion tokens' job.

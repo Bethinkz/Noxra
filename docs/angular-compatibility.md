@@ -66,11 +66,12 @@ Every one of these, on the version in question:
 2. `npm run typecheck` — TypeScript project references compile.
 3. `npm run test` and `npm run test:showcase` — unit tests pass.
 4. `npm run check:tokens` — the token contract is intact.
-5. `npm run check:package` — package shape and dependency graph are correct.
-6. `npm run build:showcase` — the showcase builds **and prerenders**, which
+5. `npm run check:contrast` — every theme still meets WCAG AA.
+6. `npm run check:package` — package shape and dependency graph are correct.
+7. `npm run build:showcase` — the showcase builds **and prerenders**, which
    runs every route through server rendering.
-7. `npm run verify:ssr` — the built SSR server boots and renders per request.
-8. `npm run lint` — including Angular template rules.
+8. `npm run verify:ssr` — the built SSR server boots and renders per request.
+9. `npm run lint` — including Angular template rules.
 
 `npm run verify` runs all of it in dependency order. That command is the gate.
 

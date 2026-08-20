@@ -2,10 +2,10 @@
 
 An Angular-native UI library and design system.
 
-> **Early development.** This repository currently contains a _foundation_:
-> architecture, a design-token system, a motion system, five components and a
-> verification pipeline. It is not published to npm, the API is unstable, and
-> the visual design is deliberately placeholder. Do not use it in production.
+> **Early development.** This repository contains a foundation and a first
+> visual pass: architecture, a design-token system, a motion system, five
+> components and a verification pipeline. It is not published to npm and the
+> API is unstable. Do not use it in production.
 
 ## What it is
 
@@ -29,13 +29,13 @@ Noxra is a UI library built for Angular rather than adapted to it.
 | Area                        | State                                            |
 | --------------------------- | ------------------------------------------------ |
 | Workspace, build, packaging | Working                                          |
-| Design tokens and theming   | 85 tokens, 4 themes, contract enforced in CI     |
+| Design tokens and theming   | 86 tokens, 4 themes, contract + WCAG AA enforced |
 | Motion system               | Tokens, reduced-motion, looping motion           |
 | Components                  | Button, Input, Card, Badge, Spinner              |
-| Tests                       | 42 specs across library and showcase             |
+| Tests                       | 45 specs across library and showcase             |
 | SSR                         | Prerender + per-request rendering, both verified |
 | CI                          | GitHub Actions, with an Angular version matrix   |
-| Visual design               | **Placeholder.** A later milestone.              |
+| Visual design               | Real palette, type scale and motion values       |
 | Published to npm            | No                                               |
 
 ## Requirements
@@ -73,6 +73,7 @@ consumer would.
 | `npm run lint`           | ESLint, including Angular template rules                  |
 | `npm run format`         | Prettier, write                                           |
 | `npm run check:tokens`   | Design token contract parity (CSS ↔ TypeScript)           |
+| `npm run check:contrast` | WCAG AA contrast across every theme                       |
 | `npm run check:package`  | Published package shape and dependency graph              |
 | `npm run verify:ssr`     | Boot the built SSR server and check rendered output       |
 | **`npm run verify`**     | **Everything above, in order. The confidence gate.**      |

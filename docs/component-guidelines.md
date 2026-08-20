@@ -130,7 +130,10 @@ identical so relative `@import` paths work in both.
 - One root class per component (`.nx-button`), with state expressed through
   attribute selectors.
 - No `!important`. No `::ng-deep`. No element selectors outside the component's
-  own class scope.
+  own class scope. The sole sanctioned `!important` in the library is the
+  theme-swap transition suppression in `base.css`, which has to outrank
+  transitions declared by the consuming application and is active for one task
+  — see [motion.md](motion.md#theme-switching-and-transitions).
 - No `prefers-reduced-motion` media query — that is the tokens' job.
 
 ## File layout
