@@ -1,0 +1,185 @@
+/**
+ * Showcase-only styles.
+ *
+ * Nothing here belongs to Noxra. This is an application consuming the library,
+ * and it is deliberately written the way a real consumer would write it: plain
+ * CSS reading Noxra's public tokens, with no build tooling of its own.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--nx-surface-base);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  line-height: var(--nx-line-height-normal);
+  transition: background-color var(--nx-duration-normal) var(--nx-easing-standard);
+}
+
+/* ---------------------------------------------------------- demo page chrome */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-8);
+  max-inline-size: 900px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: var(--nx-font-size-xl);
+  font-weight: var(--nx-font-weight-semibold);
+  letter-spacing: var(--nx-letter-spacing-tight);
+}
+
+.page-lead {
+  margin: var(--nx-space-2) 0 0;
+  color: var(--nx-content-secondary);
+  max-inline-size: 68ch;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-3);
+}
+
+.section-title {
+  margin: 0;
+  color: var(--nx-content-tertiary);
+  font-size: var(--nx-font-size-xs);
+  font-weight: var(--nx-font-weight-semibold);
+  letter-spacing: var(--nx-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.section-note {
+  margin: 0;
+  color: var(--nx-content-secondary);
+  max-inline-size: 68ch;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nx-space-3);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-3);
+  max-inline-size: 360px;
+}
+
+.field-label {
+  display: block;
+  margin-block-end: var(--nx-space-1);
+  color: var(--nx-content-secondary);
+  font-size: var(--nx-font-size-xs);
+}
+
+.code {
+  padding: var(--nx-space-3);
+  border: 1px solid var(--nx-border-subtle);
+  border-radius: var(--nx-radius-md);
+  background-color: var(--nx-surface-sunken);
+  color: var(--nx-content-secondary);
+  font-family: var(--nx-font-mono);
+  font-size: var(--nx-font-size-xs);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Token table */
+
+.token-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-2);
+}
+
+.token-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--nx-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.token {
+  display: flex;
+  align-items: center;
+  gap: var(--nx-space-2);
+  padding: var(--nx-space-2);
+  border: 1px solid var(--nx-border-subtle);
+  border-radius: var(--nx-radius-sm);
+  background-color: var(--nx-surface-raised);
+}
+
+.token-swatch {
+  flex: none;
+  inline-size: 22px;
+  block-size: 22px;
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-sm);
+}
+
+.token-text {
+  min-inline-size: 0;
+}
+
+.token-name {
+  display: block;
+  font-family: var(--nx-font-mono);
+  font-size: var(--nx-font-size-xs);
+  overflow-wrap: anywhere;
+}
+
+.token-value {
+  display: block;
+  color: var(--nx-content-tertiary);
+  font-family: var(--nx-font-mono);
+  font-size: var(--nx-font-size-xs);
+  overflow-wrap: anywhere;
+}
+
+/* Motion demo */
+
+.motion-box {
+  inline-size: 96px;
+  block-size: 96px;
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-lg);
+  background-color: var(--nx-surface-raised);
+}
+
+.motion-box--shift {
+  transition:
+    translate var(--nx-duration-normal) var(--nx-easing-emphasized),
+    background-color var(--nx-duration-normal) var(--nx-easing-standard);
+}
+
+.motion-box--shift[data-active='true'] {
+  translate: calc(var(--nx-distance-medium) * 6) 0;
+  background-color: var(--nx-accent-subtle);
+}
+
+.motion-box--scale {
+  transition: scale var(--nx-duration-fast) var(--nx-easing-enter);
+}
+
+.motion-box--scale[data-active='true'] {
+  scale: var(--nx-scale-enter);
+}

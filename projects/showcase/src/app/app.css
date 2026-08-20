@@ -1,0 +1,115 @@
+/* Showcase chrome only. Deliberately plain - this is not Noxra's design. */
+
+.shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-block-size: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-4);
+  padding: var(--nx-space-5);
+  border-inline-end: 1px solid var(--nx-border-subtle);
+  background-color: var(--nx-surface-sunken);
+}
+
+.brand {
+  color: var(--nx-content-primary);
+  font-size: var(--nx-font-size-lg);
+  font-weight: var(--nx-font-weight-semibold);
+  letter-spacing: var(--nx-letter-spacing-wide);
+  text-decoration: none;
+}
+
+.brand-note {
+  margin: calc(var(--nx-space-4) * -1) 0 0;
+  color: var(--nx-content-tertiary);
+  font-size: var(--nx-font-size-xs);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-1);
+}
+
+.nav-link {
+  padding: var(--nx-space-2) var(--nx-space-3);
+  border-radius: var(--nx-radius-md);
+  color: var(--nx-content-secondary);
+  text-decoration: none;
+  transition: background-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nav-link:hover {
+  background-color: var(--nx-state-hover);
+  color: var(--nx-content-primary);
+}
+
+.nav-link--active {
+  background-color: var(--nx-state-selected);
+  color: var(--nx-content-primary);
+}
+
+.nav-link:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-3);
+  margin-block-start: auto;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-1);
+}
+
+.control-label {
+  color: var(--nx-content-tertiary);
+  font-size: var(--nx-font-size-xs);
+  letter-spacing: var(--nx-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+.control-field {
+  padding: var(--nx-space-1) var(--nx-space-2);
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-sm);
+  background-color: var(--nx-surface-raised);
+  color: var(--nx-content-primary);
+  font-family: inherit;
+  font-size: var(--nx-font-size-xs);
+}
+
+.control-note {
+  margin: 0;
+  color: var(--nx-content-tertiary);
+  font-size: var(--nx-font-size-xs);
+}
+
+.content {
+  padding: var(--nx-space-8);
+  overflow-x: auto;
+}
+
+@media (max-width: 720px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--nx-border-subtle);
+  }
+
+  .content {
+    padding: var(--nx-space-4);
+  }
+}

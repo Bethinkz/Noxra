@@ -1,0 +1,53 @@
+<div class="shell">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/">NOXRA</a>
+    <p class="brand-note">Foundation preview</p>
+
+    <nav class="nav">
+      @for (item of nav; track item.path) {
+        <a
+          class="nav-link"
+          [routerLink]="item.path"
+          routerLinkActive="nav-link--active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="controls">
+      <label class="control">
+        <span class="control-label">Theme</span>
+        <select
+          class="control-field"
+          [value]="theme()"
+          (change)="setTheme($any($event.target).value)"
+        >
+          @for (name of themes; track name) {
+            <option [value]="name">{{ name }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="control">
+        <span class="control-label">Motion</span>
+        <select
+          class="control-field"
+          [value]="motion()"
+          (change)="setMotion($any($event.target).value)"
+        >
+          @for (preference of motionPreferences; track preference) {
+            <option [value]="preference">{{ preference }}</option>
+          }
+        </select>
+      </label>
+
+      <p class="control-note">Resolved: motion is {{ reducedMotion() ? 'reduced' : 'full' }}</p>
+    </div>
+  </aside>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
