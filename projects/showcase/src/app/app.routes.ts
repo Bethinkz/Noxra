@@ -22,6 +22,13 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/motion-page').then((m) => m.MotionPage),
   },
   {
+    // Spike, deliberately not in the sidebar: reachable at /motion-spike for
+    // experimentation, but not a product section. See motion-spike-page.ts.
+    path: 'motion-spike',
+    title: 'Motion spike - Noxra',
+    loadComponent: () => import('./pages/motion-spike-page').then((m) => m.MotionSpikePage),
+  },
+  {
     path: 'button',
     title: 'Button - Noxra',
     loadComponent: () => import('./pages/button-page').then((m) => m.ButtonPage),
