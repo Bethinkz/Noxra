@@ -38,6 +38,7 @@ const STEPS = [
   ['typecheck', 'TypeScript project references'],
   ['test', 'Library unit tests'],
   ['test:showcase', 'Showcase unit tests'],
+  ['test:browser', 'Browser tests - real DOM behaviour jsdom cannot see'],
   ['check:package', 'Published package correctness'],
   ['build:showcase', 'Showcase build, including prerender (SSR at build time)'],
   ['verify:ssr', 'SSR server smoke test (SSR at request time)'],

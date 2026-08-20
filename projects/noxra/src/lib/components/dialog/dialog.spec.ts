@@ -75,6 +75,8 @@ describe('NxDialog', () => {
     // The browser owns Escape, so `close` can fire without `open` changing.
     // If the model did not follow, the consumer's state would silently drift.
     dialog.close();
+    // `close` is queued as a task, not dispatched synchronously.
+    await new Promise((resolve) => setTimeout(resolve, 0));
     await fixture.whenStable();
 
     expect(host.open()).toBe(false);
@@ -91,6 +93,8 @@ describe('NxDialog', () => {
     // the backdrop is a pseudo-element and has no target of its own.
     dialog.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     await fixture.whenStable();
+    // Closing the element queues `close`; the reason arrives with it.
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(host.open()).toBe(false);
     expect(host.reasons()).toEqual(['dismiss']);

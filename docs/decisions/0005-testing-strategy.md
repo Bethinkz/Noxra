@@ -36,6 +36,18 @@ rather than being poked onto an instance.
 change and teach people to re-record without reading. No coverage target. No
 tests of private methods.
 
+**Two environments.** jsdom for logic, a real browser for everything jsdom
+cannot see. `*.browser.spec.ts` runs through Vitest browser mode against an
+installed Chrome, and covers only what genuinely needs it: the top layer, focus
+trapping and focus restoration that `<dialog>` provides, whether
+`pointer-events: none` actually blocks a click, and whether a transitioned
+property really repaints after a theme swap.
+
+That split is not tidiness. Both of this milestone's silent bugs — a theme swap
+leaving stale colours, and a dialog that could not reopen — were invisible to
+jsdom by construction, and one of them was being _hidden_ by a jsdom shim that
+fired `close` synchronously when browsers fire it as a queued task.
+
 **Beyond unit tests.** Four checks in `npm run verify` catch classes of bug
 unit tests cannot:
 
@@ -73,8 +85,6 @@ Bad, and accepted:
 
 ## Deferred
 
-- **Browser-based tests** for focus behaviour, pointer interaction and layout.
-  Vitest browser mode is the likely route.
 - **Visual regression**, once the design is real enough to regress.
 - **Accessibility assertions** with `axe-core` in CI.
 - **Bundle size budgets** per component, to catch tree-shaking regressions.

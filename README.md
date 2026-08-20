@@ -26,17 +26,17 @@ Noxra is a UI library built for Angular rather than adapted to it.
 
 ## Status
 
-| Area                        | State                                            |
-| --------------------------- | ------------------------------------------------ |
-| Workspace, build, packaging | Working                                          |
-| Design tokens and theming   | 86 tokens, 4 themes, contract + WCAG AA enforced |
-| Motion system               | Tokens, reduced-motion, looping motion           |
-| Components                  | Button, Input, Card, Badge, Spinner              |
-| Tests                       | 45 specs across library and showcase             |
-| SSR                         | Prerender + per-request rendering, both verified |
-| CI                          | GitHub Actions, with an Angular version matrix   |
-| Visual design               | Real palette, type scale and motion values       |
-| Published to npm            | No                                               |
+| Area                        | State                                              |
+| --------------------------- | -------------------------------------------------- |
+| Workspace, build, packaging | Working                                            |
+| Design tokens and theming   | 86 tokens, 4 themes, contract + WCAG AA enforced   |
+| Motion system               | Tokens, reduced-motion, looping motion             |
+| Components                  | Button, Input, Card, Badge, Spinner, Dialog, Alert |
+| Tests                       | 72 specs: jsdom, browser, SSR                      |
+| SSR                         | Prerender + per-request rendering, both verified   |
+| CI                          | GitHub Actions, with an Angular version matrix     |
+| Visual design               | Real palette, type scale and motion values         |
+| Published to npm            | No                                                 |
 
 ## Requirements
 
@@ -69,6 +69,7 @@ consumer would.
 | `npm test`               | Library unit tests                                        |
 | `npm run test:watch`     | Library tests in watch mode                               |
 | `npm run test:showcase`  | Showcase unit tests                                       |
+| `npm run test:browser`   | Browser tests — real DOM behaviour jsdom cannot see       |
 | `npm run typecheck`      | TypeScript project references                             |
 | `npm run lint`           | ESLint, including Angular template rules                  |
 | `npm run format`         | Prettier, write                                           |

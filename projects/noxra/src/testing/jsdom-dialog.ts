@@ -59,6 +59,10 @@ if (proto && typeof proto.showModal !== 'function') {
       this.returnValue = returnValue;
     }
 
-    this.dispatchEvent(new Event('close'));
+    // The spec queues an element task, so real browsers fire `close`
+    // asynchronously. Firing it synchronously here would let the jsdom suite
+    // pass while hiding a timing assumption that fails in a browser - which is
+    // exactly what it did before this was corrected.
+    setTimeout(() => this.dispatchEvent(new Event('close')), 0);
   };
 }

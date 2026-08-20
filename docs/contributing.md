@@ -41,6 +41,10 @@ appear on save without a library rebuild. TypeScript changes need
 npm run verify
 ```
 
+The browser suite inside it needs a Chrome. Playwright is installed without
+its bundled browsers, so `tools/test-browser.mjs` finds an installed one, or
+reads `CHROME_BIN`.
+
 This is the gate. It runs formatting, lint, the token contract check, the
 library build, typecheck, both test suites, the package check, the showcase
 build with prerendering, and the SSR smoke test — in that order, because later

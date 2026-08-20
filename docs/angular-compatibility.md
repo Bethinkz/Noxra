@@ -68,7 +68,8 @@ Every one of these, on the version in question:
 1. `npm run build:lib` — library builds in Angular Package Format, partial
    compilation mode.
 2. `npm run typecheck` — TypeScript project references compile.
-3. `npm run test` and `npm run test:showcase` — unit tests pass.
+3. `npm run test`, `npm run test:showcase` and `npm run test:browser` — unit
+   and browser tests pass.
 4. `npm run check:tokens` — the token contract is intact.
 5. `npm run check:contrast` — every theme still meets WCAG AA.
 6. `npm run check:package` — package shape and dependency graph are correct.
