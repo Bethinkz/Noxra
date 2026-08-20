@@ -30,3 +30,5 @@
 @import './components/card.css';
 @import './components/badge.css';
 @import './components/spinner.css';
+@import './components/dialog.css';
+@import './components/alert.css';

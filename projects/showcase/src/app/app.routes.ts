@@ -44,6 +44,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/card-page').then((m) => m.CardPage),
   },
   {
+    path: 'dialog',
+    title: 'Dialog - Noxra',
+    loadComponent: () => import('./pages/dialog-page').then((m) => m.DialogPage),
+  },
+  {
     path: 'badge',
     title: 'Badge - Noxra',
     loadComponent: () => import('./pages/badge-page').then((m) => m.BadgePage),

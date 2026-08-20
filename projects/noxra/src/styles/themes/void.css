@@ -26,6 +26,7 @@
   --nx-surface-raised: #121316;
   --nx-surface-overlay: #1a1b1f;
   --nx-surface-inverse: #f2f3f5;
+  --nx-surface-scrim: rgb(2 2 3 / 66%);
 
   /* --------------------------------------------------------------- content */
   --nx-content-primary: #f2f3f5;

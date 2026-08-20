@@ -43,6 +43,7 @@ export class App {
     { path: '/input', label: 'Input' },
     { path: '/card', label: 'Card' },
     { path: '/badge', label: 'Badge' },
+    { path: '/dialog', label: 'Dialog' },
   ];
 
   protected setTheme(value: string): void {

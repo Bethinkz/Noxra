@@ -18,7 +18,16 @@ describe('App shell', () => {
       (fixture.nativeElement as HTMLElement).querySelectorAll('.nav-link'),
     ).map((link) => link.textContent?.trim());
 
-    expect(labels).toEqual(['Foundation', 'Tokens', 'Motion', 'Button', 'Input', 'Card', 'Badge']);
+    expect(labels).toEqual([
+      'Foundation',
+      'Tokens',
+      'Motion',
+      'Button',
+      'Input',
+      'Card',
+      'Badge',
+      'Dialog',
+    ]);
   });
 
   it('applies the configured Noxra theme to the document', async () => {

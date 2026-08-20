@@ -54,3 +54,18 @@ export { NxBadge } from './lib/components/badge/badge';
 export { type NxBadgeSize, type NxBadgeVariant } from './lib/components/badge/badge.types';
 
 export { NxSpinner } from './lib/components/spinner/spinner';
+
+export {
+  NxDialog,
+  NxDialogBody,
+  NxDialogFooter,
+  NxDialogHeader,
+} from './lib/components/dialog/dialog';
+export { type NxDialogCloseReason, type NxDialogSize } from './lib/components/dialog/dialog.types';
+
+export { NxAlertService } from './lib/components/alert/alert';
+export {
+  type NxAlertOptions,
+  type NxAlertResult,
+  type NxAlertTone,
+} from './lib/components/alert/alert.types';

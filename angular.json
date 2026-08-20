@@ -34,7 +34,8 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/noxra/tsconfig.spec.json"
+            "tsConfig": "projects/noxra/tsconfig.spec.json",
+            "setupFiles": ["projects/noxra/src/testing/jsdom-dialog.ts"]
           }
         }
       }

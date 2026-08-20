@@ -15,6 +15,7 @@
   --nx-surface-raised: #0d0d0d;
   --nx-surface-overlay: #171717;
   --nx-surface-inverse: #ffffff;
+  --nx-surface-scrim: rgb(0 0 0 / 72%);
 
   --nx-content-primary: #ffffff;
   --nx-content-secondary: #a8a8a8;

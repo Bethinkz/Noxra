@@ -84,6 +84,8 @@ const requiredStyles = [
   'styles/components/card.css',
   'styles/components/badge.css',
   'styles/components/spinner.css',
+  'styles/components/dialog.css',
+  'styles/components/alert.css',
 ];
 
 for (const file of requiredStyles) {

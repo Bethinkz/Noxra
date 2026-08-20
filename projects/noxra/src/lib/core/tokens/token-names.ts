@@ -19,6 +19,7 @@ export const NX_TOKEN_GROUPS = {
     '--nx-surface-raised',
     '--nx-surface-overlay',
     '--nx-surface-inverse',
+    '--nx-surface-scrim',
   ],
   content: [
     '--nx-content-primary',

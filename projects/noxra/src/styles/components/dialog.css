@@ -1,0 +1,123 @@
+/**
+ * Dialog — `<dialog nxDialog>`.
+ *
+ * Both entrance and exit are pure CSS. `@starting-style` supplies the state to
+ * animate *from* on open, and `transition-behavior: allow-discrete` lets
+ * `display` and `overlay` participate so the element animates *out* before the
+ * browser removes it from the top layer.
+ *
+ * That is the whole reason this component needs no JavaScript animation and no
+ * overlay dependency. Where those CSS features are unsupported the dialog
+ * still opens and closes correctly, just instantly.
+ */
+
+.nx-dialog {
+  --_nx-dialog-inline-size: 480px;
+
+  box-sizing: border-box;
+  inline-size: min(92vw, var(--_nx-dialog-inline-size));
+  max-block-size: min(86dvh, 720px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-lg);
+  background-color: var(--nx-surface-overlay);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  line-height: var(--nx-line-height-normal);
+  box-shadow: var(--nx-shadow-lg);
+
+  /* Closed state, and therefore also the exit target. */
+  opacity: 0;
+  scale: var(--nx-scale-enter);
+  transition:
+    opacity var(--nx-duration-fast) var(--nx-easing-exit),
+    scale var(--nx-duration-fast) var(--nx-easing-exit),
+    display var(--nx-duration-fast) allow-discrete,
+    overlay var(--nx-duration-fast) allow-discrete;
+}
+
+.nx-dialog[open] {
+  opacity: 1;
+  scale: 1;
+
+  /* Entrances are slower and gentler than exits, per the motion vocabulary. */
+  transition:
+    opacity var(--nx-duration-normal) var(--nx-easing-enter),
+    scale var(--nx-duration-normal) var(--nx-easing-enter),
+    display var(--nx-duration-normal) allow-discrete,
+    overlay var(--nx-duration-normal) allow-discrete;
+}
+
+/* The state an opening dialog animates from. Without this it would appear at
+   its final values and never transition in. */
+@starting-style {
+  .nx-dialog[open] {
+    opacity: 0;
+    scale: var(--nx-scale-enter);
+  }
+}
+
+/* ---------------------------------------------------------------- backdrop */
+
+.nx-dialog::backdrop {
+  /* `::backdrop` inherits from its originating element in current browsers;
+     the fallback covers engines where it does not. */
+  background-color: var(--nx-surface-scrim, rgb(0 0 0 / 60%));
+  opacity: 0;
+  transition:
+    opacity var(--nx-duration-fast) var(--nx-easing-exit),
+    display var(--nx-duration-fast) allow-discrete,
+    overlay var(--nx-duration-fast) allow-discrete;
+}
+
+.nx-dialog[open]::backdrop {
+  opacity: 1;
+  transition:
+    opacity var(--nx-duration-normal) var(--nx-easing-enter),
+    display var(--nx-duration-normal) allow-discrete,
+    overlay var(--nx-duration-normal) allow-discrete;
+}
+
+@starting-style {
+  .nx-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------- sizes */
+
+.nx-dialog[data-size='sm'] {
+  --_nx-dialog-inline-size: 380px;
+}
+
+.nx-dialog[data-size='lg'] {
+  --_nx-dialog-inline-size: 640px;
+}
+
+/* ---------------------------------------------------------------- sections */
+
+.nx-dialog__header {
+  padding: var(--nx-space-5) var(--nx-space-5) var(--nx-space-3);
+  font-size: var(--nx-font-size-lg);
+  font-weight: var(--nx-font-weight-semibold);
+  line-height: var(--nx-line-height-tight);
+  letter-spacing: var(--nx-letter-spacing-tight);
+}
+
+.nx-dialog__body {
+  padding: 0 var(--nx-space-5) var(--nx-space-5);
+  overflow-y: auto;
+  color: var(--nx-content-secondary);
+}
+
+.nx-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--nx-space-2);
+  padding: var(--nx-space-4) var(--nx-space-5);
+  border-block-start: 1px solid var(--nx-border-subtle);
+  background-color: var(--nx-surface-raised);
+}

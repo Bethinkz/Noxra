@@ -1,0 +1,58 @@
+/**
+ * Alert — rendered by `NxAlertService`, never written by hand.
+ *
+ * Deliberately thin: an alert is a `NxDialog` with a tone. All the surface,
+ * spacing and motion come from the dialog stylesheet, so an alert cannot drift
+ * away from the rest of the design.
+ */
+
+.nx-alert .nx-dialog__header {
+  display: flex;
+  align-items: center;
+  gap: var(--nx-space-2);
+}
+
+/*
+ * A tone marker rather than an icon. Noxra does not ship an icon set - that is
+ * the consumer's choice - so severity is carried by a token-coloured rule that
+ * costs no dependency and no DOM.
+ */
+.nx-alert .nx-dialog__header::before {
+  content: '';
+  flex: none;
+  inline-size: 3px;
+  align-self: stretch;
+  min-block-size: 1em;
+  border-radius: var(--nx-radius-full);
+  background-color: var(--_nx-alert-tone, var(--nx-content-tertiary));
+}
+
+.nx-alert[data-tone='accent'] {
+  --_nx-alert-tone: var(--nx-accent);
+}
+
+.nx-alert[data-tone='success'] {
+  --_nx-alert-tone: var(--nx-state-success);
+}
+
+.nx-alert[data-tone='warning'] {
+  --_nx-alert-tone: var(--nx-state-warning);
+}
+
+.nx-alert[data-tone='danger'] {
+  --_nx-alert-tone: var(--nx-state-danger);
+}
+
+/*
+ * The confirm button inherits the tone, so a destructive confirmation looks
+ * destructive without the caller styling anything.
+ */
+.nx-alert .nx-button[data-tone='danger'][data-variant='solid'] {
+  background-color: var(--nx-state-danger);
+  color: var(--nx-content-primary);
+}
+
+.nx-alert .nx-button[data-tone='warning'][data-variant='solid'] {
+  background-color: var(--nx-state-warning);
+  color: var(--nx-content-inverse);
+}
