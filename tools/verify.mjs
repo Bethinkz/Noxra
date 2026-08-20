@@ -109,7 +109,13 @@ for (const [name, description] of steps) {
   process.stdout.write(`\n── ${name} ─ ${description}\n\n`);
 
   const startedAt = Date.now();
-  const result = spawnSync('npm', ['run', name], {
+  // The command is one string rather than a command plus an args array:
+  // `shell: true` with separate args is deprecated in Node 24 (DEP0190),
+  // because the args are concatenated rather than escaped. `shell: true` is
+  // still required so `npm` resolves to `npm.cmd` on Windows. Nothing
+  // interpolated here is user input - `name` always comes from STEPS, and the
+  // --only/--skip/--from filters are validated against it above.
+  const result = spawnSync(`npm run ${name}`, {
     cwd: repoRoot,
     stdio: 'inherit',
     shell: true,
