@@ -33,6 +33,7 @@ const STEPS = [
   ['format:check', 'Prettier formatting'],
   ['lint', 'ESLint - TypeScript and Angular templates'],
   ['check:tokens', 'Design token contract parity (CSS <-> TypeScript)'],
+  ['check:contrast', 'WCAG AA contrast across every theme'],
   ['build:lib', 'Library build - Angular Package Format'],
   ['typecheck', 'TypeScript project references'],
   ['test', 'Library unit tests'],

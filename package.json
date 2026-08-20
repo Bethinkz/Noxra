@@ -25,6 +25,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check:tokens": "node tools/check-tokens.mjs",
+    "check:contrast": "node tools/check-contrast.mjs",
     "check:package": "node tools/check-package.mjs",
     "verify:ssr": "node tools/verify-ssr.mjs",
     "verify": "node tools/verify.mjs",
