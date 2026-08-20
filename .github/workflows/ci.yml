@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Weekly, to catch Angular prereleases before they become stable.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Keep in step with `engines.node` in package.json and with .nvmrc.
+  NODE_VERSION: '24.19.0'
+
+jobs:
+  # The gate. Runs the full pipeline against the Angular version in the
+  # lockfile. Required for merge.
+  verify:
+    name: verify (Angular current)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Report Angular version under test
+        run: npx ng version || node -p "require('@angular/core/package.json').version"
+
+      - name: Verify
+        run: npm run verify
+
+      - name: Upload build output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # Angular version matrix.
+  #
+  # This job is the shape future version testing plugs into: adding a version
+  # is one entry, not a new job. `experimental: true` entries report but do not
+  # gate, which is what lets prerelease coverage exist without blocking merges.
+  #
+  # `previous` is intentionally absent until it has actually been made to pass —
+  # see docs/angular-compatibility.md. Noxra does not claim untested versions.
+  angular-matrix:
+    name: Angular ${{ matrix.angular }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    # Prereleases move constantly; running this per-PR would be noise.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - angular: next
+            experimental: true
+
+    continue-on-error: ${{ matrix.experimental }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install baseline
+        run: npm ci
+
+      - name: Install Angular ${{ matrix.angular }}
+        run: |
+          npm install --no-audit --no-fund \
+            @angular/common@${{ matrix.angular }} \
+            @angular/compiler@${{ matrix.angular }} \
+            @angular/core@${{ matrix.angular }} \
+            @angular/forms@${{ matrix.angular }} \
+            @angular/platform-browser@${{ matrix.angular }} \
+            @angular/platform-server@${{ matrix.angular }} \
+            @angular/router@${{ matrix.angular }} \
+            @angular/ssr@${{ matrix.angular }} \
+            @angular/build@${{ matrix.angular }} \
+            @angular/cli@${{ matrix.angular }} \
+            @angular/compiler-cli@${{ matrix.angular }} \
+            ng-packagr@${{ matrix.angular }}
+
+      - name: Report resolved versions
+        run: node -p "require('@angular/core/package.json').version"
+
+      - name: Verify
+        # Lint and formatting are not version-sensitive, and angular-eslint
+        # pins a single Angular major, so they are skipped here rather than
+        # producing a failure that says nothing about Angular compatibility.
+        run: npm run verify -- --skip=format:check,lint
