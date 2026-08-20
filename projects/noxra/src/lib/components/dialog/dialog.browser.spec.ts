@@ -127,7 +127,7 @@ describe('NxDialog (browser)', () => {
     expect(host.reasons()).toEqual(['action']);
   });
 
-  it('can be reopened once the exit transition has finished', async () => {
+  it('can be reopened immediately after closing', async () => {
     const { fixture, host, dialog } = await setup();
 
     host.open.set(true);
@@ -136,17 +136,18 @@ describe('NxDialog (browser)', () => {
     await waitFor(() => !host.open(), 'the model to follow the native close');
     await fixture.whenStable();
 
-    // The wait is the point, not incidental. Reopening *within* the exit
-    // transition silently does not take effect - see the limitation recorded
-    // on NxDialog. This asserts the boundary so a future fix has something to
-    // flip, and a regression on the working path has something to catch it.
-    await settle();
-
+    // No wait: reopening while the exit transition is still in flight. This
+    // used to fail silently, because the queued `close` from the first close
+    // arrived after the reopen and shut the dialog again.
     host.open.set(true);
     await fixture.whenStable();
 
     expect(dialog.open).toBe(true);
     expect(dialog.matches(':modal')).toBe(true);
+
+    // Still open once the stale close would have been delivered.
+    await settle();
+    expect(dialog.open).toBe(true);
   });
 
   it('paints a backdrop from the scrim token', async () => {

@@ -49,19 +49,10 @@ import type { NxDialogCloseReason, NxDialogSize } from './dialog.types';
  * Escape and backdrop dismissal write back through the `open` model, so the
  * consumer's signal never drifts out of sync with what is on screen.
  *
- * ## Known limitation: reopening mid-exit
- *
- * Reopening within the exit transition - roughly `--nx-duration-fast` after
- * closing - does not take effect. The exit is a discrete `display` / `overlay`
- * transition, and reopening while it is in flight lets it finish a task later
- * and shut the dialog again. `showModal()` succeeds and reports success, so
- * this fails silently rather than throwing.
- *
- * Waiting for the exit to finish before reopening works. Suppressing the
- * transition across the reopen was tried and did not hold; a correct fix
- * probably belongs in CSS rather than in this effect, and is not worth a
- * fragile workaround here. Covered by a browser test so the behaviour is
- * recorded rather than rediscovered.
+ * Closing and immediately reopening works. `close` is queued as a task, so
+ * that pair delivers the close event after the dialog is showing again; the
+ * handler ignores a close that arrives once the element is open, which is what
+ * stops a stale event shutting the dialog the user just opened.
  */
 @Directive({
   selector: 'dialog[nxDialog]',
@@ -121,6 +112,14 @@ export class NxDialog {
   }
 
   protected onNativeClose(): void {
+    // `close` is queued as an element task, so a close-then-reopen pair
+    // delivers it *after* the dialog is showing again. Acting on a stale close
+    // would write `open` back to false and shut the dialog that was just
+    // opened - which is what made reopening mid-exit fail silently.
+    if (this.host.open) {
+      return;
+    }
+
     const reason: NxDialogCloseReason = this.dismissing ? 'dismiss' : 'action';
     this.dismissing = false;
 
