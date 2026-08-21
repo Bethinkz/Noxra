@@ -98,6 +98,7 @@ const requiredStyles = [
   'styles/components/toolbar.css',
   'styles/components/accordion.css',
   'styles/components/breadcrumb.css',
+  'styles/components/tabs.css',
   'styles/components/dialog.css',
   'styles/components/alert.css',
   'styles/components/tooltip.css',
@@ -144,31 +145,80 @@ for (const name of Object.keys(manifest.dependencies ?? {})) {
 }
 
 /**
- * Imports the published bundle actually makes. Each of these would be a real
- * cost to every consumer, so each needs a deliberate decision rather than an
+ * Imports a bundle actually makes. Each is a real cost to every consumer of
+ * that entry point, so each needs a deliberate decision rather than an
  * accidental import.
+ *
+ * The main entry point is held to a stricter rule than the secondary one: it
+ * may not touch the optional peers at all. That separation is the entire point
+ * of having a secondary entry point, and it is the thing most likely to be
+ * undone by an innocent-looking import, so it is checked rather than trusted.
  */
-const forbiddenImports = ['@angular/forms', '@angular/cdk', '@angular/aria', '@angular/animations'];
+const forbiddenInMain = ['@angular/forms', '@angular/cdk', '@angular/aria', '@angular/animations'];
 
-const bundlePath = join(distDir, 'fesm2022/noxra-ui.mjs');
-if (existsSync(bundlePath)) {
+/** `@angular/aria/tabs` -> `@angular/aria`. */
+function packageNameOf(specifier) {
+  const parts = specifier.split('/');
+  return specifier.startsWith('@') ? parts.slice(0, 2).join('/') : parts[0];
+}
+
+function importsOf(bundlePath) {
   const bundle = readFileSync(bundlePath, 'utf8');
-  const imported = new Set(
+  return new Set(
     Array.from(bundle.matchAll(/from\s+'([^']+)'/g), (match) => match[1]).filter(
       (specifier) => !specifier.startsWith('.'),
     ),
   );
+}
 
-  for (const specifier of forbiddenImports) {
-    if (imported.has(specifier)) {
-      fail(`the bundle imports ${specifier}; that must be a deliberate, documented decision`);
-    }
-  }
+const mainBundle = join(distDir, 'fesm2022/noxra-ui.mjs');
+if (existsSync(mainBundle)) {
+  const imported = importsOf(mainBundle);
 
   for (const specifier of imported) {
-    const allowed = specifier in peers || specifier === 'tslib';
-    if (!allowed) {
-      fail(`the bundle imports "${specifier}", which is neither a peer dependency nor tslib`);
+    const name = packageNameOf(specifier);
+
+    if (forbiddenInMain.includes(name)) {
+      fail(
+        `the main bundle imports ${specifier}. That dependency belongs behind a ` +
+          'secondary entry point so consumers who do not use it need not install it.',
+      );
+    }
+
+    if (!(name in peers) && name !== 'tslib') {
+      fail(`the main bundle imports "${specifier}", which is neither a peer dependency nor tslib`);
+    }
+  }
+}
+
+// ------------------------------------------------ secondary entry point: aria
+
+const optionalPeers = manifest.peerDependenciesMeta ?? {};
+
+if (!manifest.exports?.['./aria']) {
+  fail('exports is missing "./aria"');
+}
+
+for (const name of ['@angular/aria', '@angular/cdk']) {
+  if (!(name in peers)) {
+    fail(`${name} must be declared as a peer dependency for the aria entry point`);
+  }
+  if (!optionalPeers[name]?.optional) {
+    fail(
+      `${name} must be marked optional in peerDependenciesMeta, or every consumer ` +
+        'is required to install it.',
+    );
+  }
+}
+
+const ariaBundle = join(distDir, 'fesm2022/noxra-ui-aria.mjs');
+if (!existsSync(ariaBundle)) {
+  fail('missing build output: fesm2022/noxra-ui-aria.mjs');
+} else {
+  for (const specifier of importsOf(ariaBundle)) {
+    const name = packageNameOf(specifier);
+    if (!(name in peers) && name !== 'tslib') {
+      fail(`the aria bundle imports "${specifier}", which is not a declared peer dependency`);
     }
   }
 }
@@ -184,4 +234,7 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Package OK: @noxra/ui@${manifest.version} (${requiredStyles.length} stylesheets).`);
+console.log(
+  `Package OK: @noxra/ui@${manifest.version} - ${requiredStyles.length} stylesheets, ` +
+    'main entry point free of optional peers.',
+);

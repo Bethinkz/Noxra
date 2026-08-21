@@ -36,6 +36,7 @@
           "options": {
             "tsConfig": "projects/noxra/tsconfig.spec.json",
             "setupFiles": ["projects/noxra/src/testing/jsdom-dialog.ts"],
+            "include": ["**/*.spec.ts", "../aria/src/**/*.spec.ts"],
             "exclude": ["**/*.browser.spec.ts"]
           }
         },
@@ -43,7 +44,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/noxra/tsconfig.spec.json",
-            "include": ["**/*.browser.spec.ts"],
+            "include": ["**/*.browser.spec.ts", "../aria/src/**/*.browser.spec.ts"],
             "setupFiles": ["projects/noxra/src/testing/browser-setup.ts"],
             "browsers": ["chromium"],
             "headless": true

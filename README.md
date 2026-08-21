@@ -34,8 +34,8 @@ Noxra is a UI library built for Angular rather than adapted to it.
 | Workspace, build, packaging | Working                                          |
 | Design tokens and theming   | 87 tokens, 4 themes, contract + WCAG AA enforced |
 | Motion system               | Tokens, reduced-motion, looping motion           |
-| Components                  | 20 across forms, display and overlays            |
-| Tests                       | 98 specs: jsdom, browser, SSR                    |
+| Components                  | 23, plus the @noxra/ui/aria entry point          |
+| Tests                       | 127 specs: jsdom, browser, SSR                   |
 | SSR                         | Prerender + per-request rendering, both verified |
 | CI                          | GitHub Actions, with an Angular version matrix   |
 | Visual design               | Real palette, type scale and motion values       |

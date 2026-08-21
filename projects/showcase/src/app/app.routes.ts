@@ -44,6 +44,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/card-page').then((m) => m.CardPage),
   },
   {
+    path: 'tabs',
+    title: 'Tabs - Noxra',
+    loadComponent: () => import('./pages/tabs-page').then((m) => m.TabsPage),
+  },
+  {
     path: 'display',
     title: 'Display - Noxra',
     loadComponent: () => import('./pages/display-page').then((m) => m.DisplayPage),

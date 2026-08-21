@@ -15,7 +15,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "paths": {
-      "@noxra/ui": ["./dist/noxra"]
+      "@noxra/ui": ["./dist/noxra"],
+      "@noxra/ui/aria": ["./dist/noxra/aria"]
     },
     "target": "ES2022",
     "module": "preserve"

@@ -75,6 +75,22 @@ npm run verify -- --from=build:lib
 7. Add a showcase page and a route.
 8. `npm run verify`.
 
+## Two things about the test config that will waste your time
+
+**`include` in the unit-test builder resolves from `sourceRoot`, not the
+project root**, despite what its schema says. That is why the aria entry
+point's specs are reached with `../aria/src/**/*.spec.ts`. A project-root-style
+pattern silently matches nothing and the run reports "No tests found".
+
+**`aria/**/*.spec.ts` matches nothing in a TypeScript `include`**, while
+`aria/src/**/*.spec.ts` matches. Nothing warns; the files are simply absent
+from the program and the specs never run. If a new spec seems to be ignored,
+check it is in the program before checking anything else:
+
+```bash
+npx tsc -p projects/noxra/tsconfig.spec.json --listFiles --noEmit
+```
+
 ## Rules that are enforced, not suggested
 
 These fail the build, so it is worth knowing them up front:

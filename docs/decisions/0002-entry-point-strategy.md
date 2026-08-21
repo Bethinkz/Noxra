@@ -68,3 +68,20 @@ explicitly trying to avoid.
 
 **No entry points, one giant module.** Already what this is, minus the
 boundaries. The boundaries are the part worth having.
+
+## Outcome (2026-08-21)
+
+Trigger 1 fired, roughly as written and for the predicted component.
+
+Tabs needed `@angular/aria` for roving focus and keyboard navigation, and Aria
+peer-depends on `@angular/cdk` — so the guess that "a Dialog needing CDK
+overlay is the likely first case" was the right _shape_ and the wrong
+component. Dialog needed no dependency at all; the native element covered it.
+
+`@noxra/ui/aria` is the result, holding every Aria-backed component rather than
+one entry point per component, since they all need the same two packages. Both
+are optional peer dependencies, so nothing reaches consumers who do not import
+from it. See [0009](0009-adopting-angular-aria.md).
+
+Triggers 2 and 3 have not fired: still one version, and no evidence of
+tree-shaking failing.

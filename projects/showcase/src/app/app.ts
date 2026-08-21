@@ -47,6 +47,7 @@ export class App {
     { path: '/card', label: 'Card' },
     { path: '/badge', label: 'Badge' },
     { path: '/display', label: 'Display' },
+    { path: '/tabs', label: 'Tabs' },
     { path: '/overlays', label: 'Overlays' },
   ];
 

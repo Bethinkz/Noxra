@@ -44,6 +44,7 @@
 @import './components/toolbar.css';
 @import './components/accordion.css';
 @import './components/breadcrumb.css';
+@import './components/tabs.css';
 @import './components/dialog.css';
 @import './components/alert.css';
 @import './components/tooltip.css';

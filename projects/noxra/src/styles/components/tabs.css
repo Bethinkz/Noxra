@@ -1,0 +1,88 @@
+/**
+ * Tabs — `@noxra/ui/aria`.
+ *
+ * Appearance only. Roving focus, arrow-key navigation, orientation, wrap-around
+ * and every ARIA relationship belong to `@angular/aria`; this file never sets a
+ * role or an aria attribute, so the two cannot disagree.
+ *
+ * Selection is read from `[data-selected]` rather than `[aria-selected]`,
+ * keeping Noxra's convention that appearance keys off data attributes and ARIA
+ * is left to mean what it says.
+ */
+
+.nx-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-4);
+}
+
+.nx-tab-list {
+  display: flex;
+  gap: var(--nx-space-1);
+  border-block-end: 1px solid var(--nx-border-subtle);
+}
+
+.nx-tab-list[data-orientation='vertical'] {
+  flex-direction: column;
+  border-block-end: 0;
+  border-inline-end: 1px solid var(--nx-border-subtle);
+}
+
+.nx-tab {
+  position: relative;
+  padding: var(--nx-space-2) var(--nx-space-3);
+  border: 0;
+  border-radius: var(--nx-radius-sm) var(--nx-radius-sm) 0 0;
+  background: transparent;
+  color: var(--nx-content-secondary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  font-weight: var(--nx-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--nx-duration-fast) var(--nx-easing-standard),
+    background-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-tab:hover:not([aria-disabled='true']) {
+  background-color: var(--nx-state-hover);
+  color: var(--nx-content-primary);
+}
+
+.nx-tab:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: calc(var(--nx-focus-ring-offset) * -1);
+}
+
+.nx-tab[data-selected] {
+  color: var(--nx-content-primary);
+}
+
+/* The indicator sits on the list's own border line. */
+.nx-tab[data-selected]::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--nx-space-2);
+  inset-block-end: -1px;
+  block-size: 2px;
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-accent);
+}
+
+.nx-tab-list[data-orientation='vertical'] .nx-tab[data-selected]::after {
+  inset-inline: auto -1px;
+  inset-block: var(--nx-space-1);
+  inline-size: 2px;
+  block-size: auto;
+}
+
+.nx-tab[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+.nx-tab-panel:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
