@@ -96,6 +96,8 @@ const requiredStyles = [
   'styles/components/progress.css',
   'styles/components/message.css',
   'styles/components/toolbar.css',
+  'styles/components/accordion.css',
+  'styles/components/breadcrumb.css',
   'styles/components/dialog.css',
   'styles/components/alert.css',
   'styles/components/tooltip.css',

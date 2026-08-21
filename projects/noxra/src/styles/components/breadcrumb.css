@@ -1,0 +1,60 @@
+/**
+ * Breadcrumb — a labelled `<nav>` around an `<ol>`.
+ *
+ * The separator is a pseudo-element, so it stays out of the accessibility tree
+ * and no screen reader reads a chevron between every crumb.
+ */
+
+.nx-breadcrumb {
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+}
+
+.nx-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nx-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nx-breadcrumb__item {
+  display: flex;
+  align-items: center;
+  gap: var(--nx-space-2);
+  color: var(--nx-content-tertiary);
+}
+
+.nx-breadcrumb__item + .nx-breadcrumb__item::before {
+  content: '';
+  flex: none;
+  inline-size: 5px;
+  block-size: 5px;
+  border-inline-end: 1.5px solid var(--nx-border-strong);
+  border-block-start: 1.5px solid var(--nx-border-strong);
+  rotate: 45deg;
+}
+
+.nx-breadcrumb__item a {
+  border-radius: var(--nx-radius-sm);
+  color: var(--nx-content-secondary);
+  text-decoration: none;
+  transition: color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-breadcrumb__item a:hover {
+  color: var(--nx-content-primary);
+  text-decoration: underline;
+}
+
+.nx-breadcrumb__item a:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+.nx-breadcrumb__item [aria-current='page'] {
+  color: var(--nx-content-primary);
+  font-weight: var(--nx-font-weight-medium);
+}

@@ -77,6 +77,18 @@ export { NxMessage } from './lib/components/message/message';
 export { NxToolbar, NxToolbarSpacer } from './lib/components/toolbar/toolbar';
 
 export {
+  NxAccordion,
+  NxAccordionItem,
+  NxAccordionPanel,
+  NxAccordionTrigger,
+} from './lib/components/accordion/accordion';
+export {
+  NxBreadcrumb,
+  NxBreadcrumbItem,
+  NxBreadcrumbList,
+} from './lib/components/breadcrumb/breadcrumb';
+
+export {
   NxDialog,
   NxDialogBody,
   NxDialogFooter,

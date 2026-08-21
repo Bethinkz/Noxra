@@ -1,11 +1,20 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
+  NxAccordion,
+  NxAccordionItem,
+  NxAccordionPanel,
+  NxAccordionTrigger,
   NxAvatar,
   NxButton,
+  NxBreadcrumb,
+  NxBreadcrumbItem,
+  NxBreadcrumbList,
   NxChip,
   NxChipRemove,
   NxMessage,
   NxProgress,
+  NxCheckbox,
+  NxFieldInline,
   NxSeparator,
   NxSkeleton,
   NxToolbar,
@@ -17,6 +26,15 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NxButton,
+    NxAccordion,
+    NxAccordionItem,
+    NxAccordionTrigger,
+    NxAccordionPanel,
+    NxBreadcrumb,
+    NxBreadcrumbList,
+    NxBreadcrumbItem,
+    NxCheckbox,
+    NxFieldInline,
     NxSeparator,
     NxAvatar,
     NxChip,
@@ -37,6 +55,63 @@ import {
           announce, what to hide, and which roles are honest to claim.
         </p>
       </header>
+
+      <section class="section">
+        <h2 class="section-title">Breadcrumb</h2>
+        <nav nxBreadcrumb>
+          <ol nxBreadcrumbList>
+            <li nxBreadcrumbItem><a href="#">Home</a></li>
+            <li nxBreadcrumbItem><a href="#">Projects</a></li>
+            <li nxBreadcrumbItem><span aria-current="page">Noxra</span></li>
+          </ol>
+        </nav>
+        <p class="section-note">
+          A labelled <code>&lt;nav&gt;</code> around an <code>&lt;ol&gt;</code> is the whole
+          WAI-ARIA pattern — there is no behaviour to add. The chevrons are CSS, so a screen reader
+          does not read one between every crumb.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Accordion</h2>
+        <p class="section-note">
+          Native <code>&lt;details&gt;</code>. Single-open comes from the browser closing siblings
+          that share a <code>name</code> — Noxra writes no state, no coordination and no
+          subscriptions. Try find-in-page for a word inside a closed panel: the browser opens it,
+          which no scripted accordion does.
+        </p>
+        <div nxAccordion [multiple]="multiOpen()">
+          <details nxAccordionItem open>
+            <summary nxAccordionTrigger>What makes this cheap?</summary>
+            <div nxAccordionPanel>
+              The element already opens, closes, announces its state and is keyboard operable.
+            </div>
+          </details>
+          <details nxAccordionItem>
+            <summary nxAccordionTrigger>Where does exclusivity come from?</summary>
+            <div nxAccordionPanel>
+              A shared <code>name</code> attribute, handled by the browser.
+            </div>
+          </details>
+          <details nxAccordionItem>
+            <summary nxAccordionTrigger>What does "multiple" change?</summary>
+            <div nxAccordionPanel>
+              It stops assigning the shared name. That is the whole feature.
+            </div>
+          </details>
+        </div>
+        <div class="row">
+          <label nxFieldInline>
+            <input
+              type="checkbox"
+              nxCheckbox
+              [checked]="multiOpen()"
+              (change)="multiOpen.set(!multiOpen())"
+            />
+            Allow multiple open
+          </label>
+        </div>
+      </section>
 
       <section class="section">
         <h2 class="section-title">Separator</h2>
@@ -179,6 +254,7 @@ export class DisplayPage {
 
   protected readonly tags = signal<string[]>(['Angular', 'Signals', 'Zoneless', 'SSR']);
   protected readonly uploaded = signal(40);
+  protected readonly multiOpen = signal(false);
 
   protected remove(tag: string): void {
     this.tags.update((tags) => tags.filter((t) => t !== tag));

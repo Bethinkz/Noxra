@@ -1,0 +1,76 @@
+/**
+ * Accordion — a group of native `<details>`.
+ *
+ * The marker is drawn as a chevron on the summary rather than using the
+ * default triangle, which is unstyleable across engines. `list-style: none`
+ * plus the WebKit pseudo-element removes the original in both.
+ */
+
+.nx-accordion {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--nx-border-subtle);
+  border-radius: var(--nx-radius-md);
+  overflow: hidden;
+}
+
+.nx-accordion__item + .nx-accordion__item {
+  border-block-start: 1px solid var(--nx-border-subtle);
+}
+
+.nx-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nx-space-3);
+  padding: var(--nx-space-3) var(--nx-space-4);
+  background-color: var(--nx-surface-raised);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  font-weight: var(--nx-font-weight-medium);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  transition: background-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-accordion__trigger::-webkit-details-marker {
+  display: none;
+}
+
+.nx-accordion__trigger:hover {
+  background-color: var(--nx-state-hover);
+}
+
+.nx-accordion__trigger:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: calc(var(--nx-focus-ring-offset) * -1);
+}
+
+/* Chevron, drawn from a rotated square so no icon set is needed. */
+.nx-accordion__trigger::after {
+  content: '';
+  flex: none;
+  inline-size: 7px;
+  block-size: 7px;
+  margin-inline-end: 3px;
+  border-inline-end: 1.5px solid var(--nx-content-tertiary);
+  border-block-end: 1.5px solid var(--nx-content-tertiary);
+  rotate: 45deg;
+  translate: 0 -2px;
+  transition: rotate var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-accordion__item[open] > .nx-accordion__trigger::after {
+  rotate: 225deg;
+  translate: 0 2px;
+}
+
+.nx-accordion__panel {
+  padding: 0 var(--nx-space-4) var(--nx-space-4);
+  color: var(--nx-content-secondary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  line-height: var(--nx-line-height-normal);
+}
