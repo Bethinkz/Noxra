@@ -1,0 +1,73 @@
+/**
+ * Radio — `<input type="radio" nxRadio>`.
+ *
+ * Same approach as the checkbox: `appearance: none` for the painting only. A
+ * shared `name` still gives the browser grouping, arrow-key navigation and a
+ * single tab stop for the set.
+ */
+
+.nx-radio {
+  --_nx-radio-size: 18px;
+
+  appearance: none;
+  flex: none;
+  inline-size: var(--_nx-radio-size);
+  block-size: var(--_nx-radio-size);
+  margin: 0;
+  border: 1px solid var(--nx-border-strong);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-surface-raised);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition:
+    background-color var(--nx-duration-fast) var(--nx-easing-standard),
+    border-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-radio[data-size='sm'] {
+  --_nx-radio-size: 15px;
+}
+
+.nx-radio[data-size='lg'] {
+  --_nx-radio-size: 22px;
+}
+
+.nx-radio::before {
+  content: '';
+  inline-size: 44%;
+  block-size: 44%;
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-content-on-accent);
+  transform: scale(0);
+  transition: transform var(--nx-duration-instant) var(--nx-easing-enter);
+}
+
+.nx-radio:checked {
+  border-color: var(--nx-accent);
+  background-color: var(--nx-accent);
+}
+
+.nx-radio:checked::before {
+  transform: scale(1);
+}
+
+.nx-radio:hover:not(:disabled) {
+  border-color: var(--nx-accent-muted);
+}
+
+.nx-radio:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+.nx-radio:disabled {
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+.nx-radio[data-invalid],
+.nx-radio[aria-invalid='true'],
+.nx-radio.ng-invalid.ng-touched {
+  border-color: var(--nx-state-danger);
+}

@@ -1,19 +1,41 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NxInput } from '@noxra/ui';
+import {
+  NxCheckbox,
+  NxField,
+  NxFieldHint,
+  NxFieldInline,
+  NxInput,
+  NxLabel,
+  NxRadio,
+  NxSlider,
+  NxSwitch,
+} from '@noxra/ui';
 
 @Component({
   selector: 'app-input-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NxInput, ReactiveFormsModule],
+  imports: [
+    NxInput,
+    NxCheckbox,
+    NxRadio,
+    NxSwitch,
+    NxSlider,
+    NxField,
+    NxLabel,
+    NxFieldInline,
+    NxFieldHint,
+    ReactiveFormsModule,
+  ],
   template: `
     <div class="page">
       <header>
-        <h1 class="page-title">Input</h1>
+        <h1 class="page-title">Forms</h1>
         <p class="page-lead">
-          A directive on a native form control. Noxra does not wrap it, does not implement
-          <code>ControlValueAccessor</code> and does not import <code>&#64;angular/forms</code> — so
-          the element keeps its own value, validity and events.
+          Every control here is a directive on a native form element. Noxra wraps none of them,
+          implements no <code>ControlValueAccessor</code> and does not import
+          <code>&#64;angular/forms</code> — so each element keeps its own value, validity, keyboard
+          behaviour and form submission. Only the painting is custom.
         </p>
       </header>
 
@@ -62,6 +84,76 @@ import { NxInput } from '@noxra/ui';
       </section>
 
       <section class="section">
+        <h2 class="section-title">Checkbox, radio, switch</h2>
+        <p class="section-note">
+          Real inputs with <code>appearance: none</code>. Click the labels, use Space, and tab
+          through the radios with the arrow keys — grouping and roving focus come from the shared
+          <code>name</code>, not from a group component Noxra would have had to write.
+        </p>
+        <div class="stack">
+          <label nxFieldInline>
+            <input type="checkbox" nxCheckbox checked />
+            Remember me
+          </label>
+          <label nxFieldInline>
+            <input type="checkbox" nxCheckbox #tri (click)="tri.indeterminate = true" />
+            Indeterminate (click to set)
+          </label>
+          <label nxFieldInline>
+            <input type="checkbox" nxCheckbox disabled />
+            Disabled
+          </label>
+
+          <fieldset style="border: 0; margin: 0; padding: 0; display: flex; gap: 16px">
+            <legend class="field-label">Plan</legend>
+            <label nxFieldInline>
+              <input type="radio" name="plan" value="free" nxRadio checked />
+              Free
+            </label>
+            <label nxFieldInline>
+              <input type="radio" name="plan" value="pro" nxRadio />
+              Pro
+            </label>
+          </fieldset>
+
+          <label nxFieldInline>
+            <input type="checkbox" nxSwitch checked />
+            Enable notifications
+          </label>
+          <label nxFieldInline>
+            <input type="checkbox" nxSwitch />
+            Beta features
+          </label>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Slider</h2>
+        <p class="section-note">
+          Arrow keys, Home/End and Page Up/Down all work, and
+          <code>aria-valuenow</code> reports itself — none of which Noxra implements.
+        </p>
+        <div class="stack">
+          <div nxField>
+            <label nxLabel for="vol">Volume — {{ volume() }}</label>
+            <input
+              id="vol"
+              type="range"
+              nxSlider
+              min="0"
+              max="100"
+              step="5"
+              [value]="volume()"
+              (input)="volume.set(+$any($event.target).value)"
+            />
+            <p nxFieldHint>Steps of 5.</p>
+          </div>
+          <input type="range" nxSlider size="sm" value="30" aria-label="Small slider" />
+          <input type="range" nxSlider size="lg" value="70" aria-label="Large slider" disabled />
+        </div>
+      </section>
+
+      <section class="section">
         <h2 class="section-title">Native constraint validation</h2>
         <p class="section-note">
           Nothing Angular here. The invalid style comes from <code>:user-invalid</code>, so it
@@ -95,4 +187,5 @@ import { NxInput } from '@noxra/ui';
 })
 export class InputPage {
   protected readonly name = new FormControl('', { validators: [Validators.required] });
+  protected readonly volume = signal(40);
 }

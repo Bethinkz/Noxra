@@ -27,6 +27,11 @@
 /* Components consume tokens only. */
 @import './components/button.css';
 @import './components/input.css';
+@import './components/checkbox.css';
+@import './components/radio.css';
+@import './components/switch.css';
+@import './components/slider.css';
+@import './components/field.css';
 @import './components/card.css';
 @import './components/badge.css';
 @import './components/spinner.css';

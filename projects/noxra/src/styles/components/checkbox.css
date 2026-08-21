@@ -1,0 +1,82 @@
+/**
+ * Checkbox — `<input type="checkbox" nxCheckbox>`.
+ *
+ * `appearance: none` removes the platform painting and nothing else: the
+ * element is still a checkbox, so keyboard, forms and semantics are untouched.
+ * The mark is a `::before` clip-path rather than an SVG or a glyph, so a
+ * checkbox is still exactly one DOM node and the mark inherits `currentColor`.
+ */
+
+.nx-checkbox {
+  --_nx-checkbox-size: 18px;
+
+  appearance: none;
+  flex: none;
+  inline-size: var(--_nx-checkbox-size);
+  block-size: var(--_nx-checkbox-size);
+  margin: 0;
+  border: 1px solid var(--nx-border-strong);
+  border-radius: var(--nx-radius-sm);
+  background-color: var(--nx-surface-raised);
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition:
+    background-color var(--nx-duration-fast) var(--nx-easing-standard),
+    border-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-checkbox[data-size='sm'] {
+  --_nx-checkbox-size: 15px;
+}
+
+.nx-checkbox[data-size='lg'] {
+  --_nx-checkbox-size: 22px;
+}
+
+.nx-checkbox::before {
+  content: '';
+  inline-size: 60%;
+  block-size: 60%;
+  transform: scale(0);
+  transform-origin: center;
+  background-color: var(--nx-content-on-accent);
+  clip-path: polygon(14% 45%, 0 60%, 40% 100%, 100% 22%, 84% 8%, 38% 70%);
+  transition: transform var(--nx-duration-instant) var(--nx-easing-enter);
+}
+
+.nx-checkbox:checked,
+.nx-checkbox:indeterminate {
+  border-color: var(--nx-accent);
+  background-color: var(--nx-accent);
+}
+
+.nx-checkbox:checked::before {
+  transform: scale(1);
+}
+
+/* Indeterminate is a bar, not a tick - it means "some", not "yes". */
+.nx-checkbox:indeterminate::before {
+  transform: scale(1);
+  clip-path: inset(42% 8% 42% 8%);
+}
+
+.nx-checkbox:hover:not(:disabled) {
+  border-color: var(--nx-accent-muted);
+}
+
+.nx-checkbox:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+.nx-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+.nx-checkbox[data-invalid],
+.nx-checkbox[aria-invalid='true'],
+.nx-checkbox.ng-invalid.ng-touched {
+  border-color: var(--nx-state-danger);
+}

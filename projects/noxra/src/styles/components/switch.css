@@ -1,0 +1,81 @@
+/**
+ * Switch — `<input type="checkbox" nxSwitch role="switch">`.
+ *
+ * The track is the element; the thumb is a `::before`. One DOM node, and the
+ * thumb travels with `translate` so the transition runs on the compositor.
+ */
+
+.nx-switch {
+  --_nx-switch-block: 20px;
+  --_nx-switch-inline: 34px;
+  --_nx-switch-gap: 2px;
+
+  appearance: none;
+  flex: none;
+  position: relative;
+  inline-size: var(--_nx-switch-inline);
+  block-size: var(--_nx-switch-block);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--nx-border-strong);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-surface-raised);
+  cursor: pointer;
+  transition:
+    background-color var(--nx-duration-fast) var(--nx-easing-standard),
+    border-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-switch[data-size='sm'] {
+  --_nx-switch-block: 17px;
+  --_nx-switch-inline: 29px;
+}
+
+.nx-switch[data-size='lg'] {
+  --_nx-switch-block: 24px;
+  --_nx-switch-inline: 42px;
+}
+
+.nx-switch::before {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--_nx-switch-gap);
+  inset-inline-start: var(--_nx-switch-gap);
+  inline-size: calc(var(--_nx-switch-block) - var(--_nx-switch-gap) * 2 - 2px);
+  block-size: calc(var(--_nx-switch-block) - var(--_nx-switch-gap) * 2 - 2px);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-content-secondary);
+  transition:
+    translate var(--nx-duration-fast) var(--nx-easing-standard),
+    background-color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-switch:checked {
+  border-color: var(--nx-accent);
+  background-color: var(--nx-accent);
+}
+
+.nx-switch:checked::before {
+  translate: calc(var(--_nx-switch-inline) - var(--_nx-switch-block)) 0;
+  background-color: var(--nx-content-on-accent);
+}
+
+.nx-switch:hover:not(:disabled) {
+  border-color: var(--nx-accent-muted);
+}
+
+.nx-switch:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+.nx-switch:disabled {
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+.nx-switch[data-invalid],
+.nx-switch[aria-invalid='true'],
+.nx-switch.ng-invalid.ng-touched {
+  border-color: var(--nx-state-danger);
+}

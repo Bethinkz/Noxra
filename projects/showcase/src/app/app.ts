@@ -43,7 +43,7 @@ export class App {
     { path: '/tokens', label: 'Tokens' },
     { path: '/motion', label: 'Motion' },
     { path: '/button', label: 'Button' },
-    { path: '/input', label: 'Input' },
+    { path: '/input', label: 'Forms' },
     { path: '/card', label: 'Card' },
     { path: '/badge', label: 'Badge' },
     { path: '/overlays', label: 'Overlays' },

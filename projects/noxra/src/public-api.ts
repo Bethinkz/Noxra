@@ -48,6 +48,18 @@ export { type NxButtonVariant } from './lib/components/button/button.types';
 
 export { NxInput } from './lib/components/input/input';
 
+export { NxCheckbox } from './lib/components/checkbox/checkbox';
+export { NxRadio } from './lib/components/radio/radio';
+export { NxSwitch } from './lib/components/switch/switch';
+export { NxSlider } from './lib/components/slider/slider';
+export {
+  NxField,
+  NxFieldError,
+  NxFieldHint,
+  NxFieldInline,
+  NxLabel,
+} from './lib/components/field/field';
+
 export { NxCard, NxCardBody, NxCardFooter, NxCardHeader } from './lib/components/card/card';
 export { type NxCardVariant } from './lib/components/card/card.types';
 

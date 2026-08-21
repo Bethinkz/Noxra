@@ -1,0 +1,97 @@
+/**
+ * Slider — `<input type="range" nxSlider>`.
+ *
+ * The vendor pseudo-elements are written as separate rule blocks on purpose.
+ * They cannot be combined into one selector list: an engine that does not
+ * recognise one of them discards the entire rule, so a shared block would
+ * style the slider in neither browser.
+ */
+
+.nx-slider {
+  --_nx-slider-track: 4px;
+  --_nx-slider-thumb: 16px;
+
+  appearance: none;
+  inline-size: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nx-slider[data-size='sm'] {
+  --_nx-slider-track: 3px;
+  --_nx-slider-thumb: 13px;
+}
+
+.nx-slider[data-size='lg'] {
+  --_nx-slider-track: 6px;
+  --_nx-slider-thumb: 20px;
+}
+
+.nx-slider:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: var(--nx-focus-ring-offset);
+}
+
+.nx-slider:disabled {
+  cursor: not-allowed;
+  opacity: var(--nx-state-disabled-opacity);
+}
+
+/* ------------------------------------------------------------ track: WebKit */
+
+.nx-slider::-webkit-slider-runnable-track {
+  block-size: var(--_nx-slider-track);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-border-default);
+}
+
+/* ------------------------------------------------------------ track: Gecko */
+
+.nx-slider::-moz-range-track {
+  block-size: var(--_nx-slider-track);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-border-default);
+}
+
+/* Gecko can paint the filled portion; WebKit cannot without extra machinery. */
+.nx-slider::-moz-range-progress {
+  block-size: var(--_nx-slider-track);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-accent);
+}
+
+/* ------------------------------------------------------------ thumb: WebKit */
+
+.nx-slider::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: var(--_nx-slider-thumb);
+  block-size: var(--_nx-slider-thumb);
+
+  /* Centres the thumb on a track thinner than itself. */
+  margin-block-start: calc((var(--_nx-slider-track) - var(--_nx-slider-thumb)) / 2);
+  border: 2px solid var(--nx-surface-base);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-accent);
+  transition: scale var(--nx-duration-instant) var(--nx-easing-standard);
+}
+
+.nx-slider:active::-webkit-slider-thumb {
+  scale: var(--nx-scale-press);
+}
+
+/* ------------------------------------------------------------- thumb: Gecko */
+
+.nx-slider::-moz-range-thumb {
+  inline-size: var(--_nx-slider-thumb);
+  block-size: var(--_nx-slider-thumb);
+  border: 2px solid var(--nx-surface-base);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-accent);
+  transition: scale var(--nx-duration-instant) var(--nx-easing-standard);
+}
+
+.nx-slider:active::-moz-range-thumb {
+  scale: var(--nx-scale-press);
+}

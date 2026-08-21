@@ -1,0 +1,50 @@
+/**
+ * Field — layout around a form control.
+ *
+ * Spacing and typography only. No ids are generated and no validity is
+ * tracked; associating a label with its control is `for` or a wrapping
+ * `<label>`, which the platform already does correctly.
+ */
+
+.nx-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nx-space-1);
+}
+
+.nx-field__label {
+  color: var(--nx-content-secondary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+  font-weight: var(--nx-font-weight-medium);
+}
+
+/* A label wrapping its control: checkbox, radio, switch. */
+.nx-field__inline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nx-space-2);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  cursor: pointer;
+}
+
+.nx-field__inline:has(:disabled) {
+  cursor: not-allowed;
+  color: var(--nx-content-disabled);
+}
+
+.nx-field__hint {
+  margin: 0;
+  color: var(--nx-content-tertiary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+}
+
+.nx-field__error {
+  margin: 0;
+  color: var(--nx-state-danger);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+}

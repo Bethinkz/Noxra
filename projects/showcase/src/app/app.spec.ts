@@ -23,7 +23,7 @@ describe('App shell', () => {
       'Tokens',
       'Motion',
       'Button',
-      'Input',
+      'Forms',
       'Card',
       'Badge',
       'Overlays',
