@@ -1,0 +1,88 @@
+/**
+ * Progress — `<progress nxProgress>`.
+ *
+ * Like the slider, the vendor pseudo-elements need separate rule blocks: a
+ * selector list containing one an engine does not recognise is discarded
+ * whole.
+ */
+
+.nx-progress {
+  --_nx-progress-block: 6px;
+  --_nx-progress-fill: var(--nx-accent);
+
+  appearance: none;
+  display: block;
+  inline-size: 100%;
+  block-size: var(--_nx-progress-block);
+  border: 0;
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-border-default);
+  overflow: hidden;
+}
+
+.nx-progress[data-size='sm'] {
+  --_nx-progress-block: 4px;
+}
+
+.nx-progress[data-size='lg'] {
+  --_nx-progress-block: 10px;
+}
+
+.nx-progress[data-tone='success'] {
+  --_nx-progress-fill: var(--nx-state-success);
+}
+
+.nx-progress[data-tone='warning'] {
+  --_nx-progress-fill: var(--nx-state-warning);
+}
+
+.nx-progress[data-tone='danger'] {
+  --_nx-progress-fill: var(--nx-state-danger);
+}
+
+/* Track: WebKit paints the container, so the background goes here too. */
+.nx-progress::-webkit-progress-bar {
+  background-color: var(--nx-border-default);
+  border-radius: var(--nx-radius-full);
+}
+
+.nx-progress::-webkit-progress-value {
+  background-color: var(--_nx-progress-fill);
+  border-radius: var(--nx-radius-full);
+  transition: inline-size var(--nx-duration-normal) var(--nx-easing-standard);
+}
+
+/* Gecko paints the value on the element's own background. */
+.nx-progress::-moz-progress-bar {
+  background-color: var(--_nx-progress-fill);
+  border-radius: var(--nx-radius-full);
+}
+
+/*
+ * Indeterminate: no value, so there is nothing to size. A travelling sweep is
+ * drawn on the element itself, using the loop tokens so reduced motion applies.
+ */
+@keyframes nx-progress-sweep {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.nx-progress:indeterminate {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--_nx-progress-fill) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: nx-progress-sweep calc(var(--nx-duration-loop) * 2) var(--nx-easing-loop) infinite;
+}
+
+.nx-progress:indeterminate::-webkit-progress-bar {
+  background-color: transparent;
+}

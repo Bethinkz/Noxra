@@ -1,0 +1,19 @@
+/** Separator — `<hr nxSeparator>` or any element with the directive. */
+
+.nx-separator {
+  flex: none;
+  border: 0;
+  margin: 0;
+  background-color: var(--nx-border-default);
+}
+
+.nx-separator[data-orientation='horizontal'] {
+  inline-size: 100%;
+  block-size: 1px;
+}
+
+.nx-separator[data-orientation='vertical'] {
+  inline-size: 1px;
+  block-size: 100%;
+  min-block-size: 1em;
+}

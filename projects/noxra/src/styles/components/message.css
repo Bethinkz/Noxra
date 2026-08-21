@@ -1,0 +1,41 @@
+/**
+ * Message — an inline notice.
+ *
+ * Tone is carried by a leading rule rather than an icon, for the same reason
+ * the alert has none: Noxra ships no icon set, and the consumer's choice of one
+ * is not the design system's business.
+ */
+
+.nx-message {
+  --_nx-message-tone: var(--nx-content-tertiary);
+
+  display: flex;
+  gap: var(--nx-space-3);
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--nx-space-3) var(--nx-space-4);
+  border: 1px solid var(--nx-border-subtle);
+  border-inline-start: 3px solid var(--_nx-message-tone);
+  border-radius: var(--nx-radius-md);
+  background-color: var(--nx-surface-raised);
+  color: var(--nx-content-secondary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-sm);
+  line-height: var(--nx-line-height-normal);
+}
+
+.nx-message[data-tone='accent'] {
+  --_nx-message-tone: var(--nx-accent);
+}
+
+.nx-message[data-tone='success'] {
+  --_nx-message-tone: var(--nx-state-success);
+}
+
+.nx-message[data-tone='warning'] {
+  --_nx-message-tone: var(--nx-state-warning);
+}
+
+.nx-message[data-tone='danger'] {
+  --_nx-message-tone: var(--nx-state-danger);
+}

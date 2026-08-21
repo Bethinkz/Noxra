@@ -1,0 +1,36 @@
+/** Avatar — `<img nxAvatar>` or an element holding initials. */
+
+.nx-avatar {
+  --_nx-avatar-size: 36px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--_nx-avatar-size);
+  block-size: var(--_nx-avatar-size);
+  border: 1px solid var(--nx-border-subtle);
+  border-radius: var(--nx-radius-full);
+  background-color: var(--nx-surface-overlay);
+  color: var(--nx-content-secondary);
+  font-family: var(--nx-font-sans);
+  font-size: calc(var(--_nx-avatar-size) * 0.36);
+  font-weight: var(--nx-font-weight-medium);
+  letter-spacing: var(--nx-letter-spacing-wide);
+  text-transform: uppercase;
+  object-fit: cover;
+  overflow: hidden;
+  user-select: none;
+}
+
+.nx-avatar[data-size='sm'] {
+  --_nx-avatar-size: 26px;
+}
+
+.nx-avatar[data-size='lg'] {
+  --_nx-avatar-size: 48px;
+}
+
+.nx-avatar[data-shape='square'] {
+  border-radius: var(--nx-radius-md);
+}

@@ -1,0 +1,74 @@
+/**
+ * Chip — `<span nxChip>`, optionally with `<button nxChipRemove>`.
+ *
+ * The remove control draws its own cross from two rotated pseudo-elements, so
+ * a chip needs no icon dependency and the button stays childless.
+ */
+
+.nx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nx-space-1);
+  box-sizing: border-box;
+  padding-block: 3px;
+  padding-inline: var(--nx-space-2);
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-sm);
+  background-color: var(--nx-state-hover);
+  color: var(--nx-content-primary);
+  font-family: var(--nx-font-sans);
+  font-size: var(--nx-font-size-xs);
+  line-height: var(--nx-line-height-tight);
+  white-space: nowrap;
+}
+
+.nx-chip[data-size='sm'] {
+  padding-block: 1px;
+  padding-inline: var(--nx-space-1);
+}
+
+.nx-chip__remove {
+  position: relative;
+  flex: none;
+  inline-size: 14px;
+  block-size: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--nx-radius-full);
+  background: transparent;
+  color: var(--nx-content-tertiary);
+  cursor: pointer;
+  transition:
+    background-color var(--nx-duration-fast) var(--nx-easing-standard),
+    color var(--nx-duration-fast) var(--nx-easing-standard);
+}
+
+.nx-chip__remove::before,
+.nx-chip__remove::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 25%;
+  inline-size: 50%;
+  block-size: 1.5px;
+  border-radius: var(--nx-radius-full);
+  background-color: currentcolor;
+}
+
+.nx-chip__remove::before {
+  rotate: 45deg;
+}
+
+.nx-chip__remove::after {
+  rotate: -45deg;
+}
+
+.nx-chip__remove:hover {
+  background-color: var(--nx-state-active);
+  color: var(--nx-content-primary);
+}
+
+.nx-chip__remove:focus-visible {
+  outline: var(--nx-focus-ring-width) solid var(--nx-state-focus-ring);
+  outline-offset: 1px;
+}

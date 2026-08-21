@@ -46,6 +46,7 @@ export class App {
     { path: '/input', label: 'Forms' },
     { path: '/card', label: 'Card' },
     { path: '/badge', label: 'Badge' },
+    { path: '/display', label: 'Display' },
     { path: '/overlays', label: 'Overlays' },
   ];
 

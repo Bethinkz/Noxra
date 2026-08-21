@@ -68,6 +68,14 @@ export { type NxBadgeSize, type NxBadgeVariant } from './lib/components/badge/ba
 
 export { NxSpinner } from './lib/components/spinner/spinner';
 
+export { NxSeparator } from './lib/components/separator/separator';
+export { NxAvatar } from './lib/components/avatar/avatar';
+export { NxChip, NxChipRemove } from './lib/components/chip/chip';
+export { NxSkeleton } from './lib/components/skeleton/skeleton';
+export { NxProgress } from './lib/components/progress/progress';
+export { NxMessage } from './lib/components/message/message';
+export { NxToolbar, NxToolbarSpacer } from './lib/components/toolbar/toolbar';
+
 export {
   NxDialog,
   NxDialogBody,

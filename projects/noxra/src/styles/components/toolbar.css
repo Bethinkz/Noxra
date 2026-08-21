@@ -1,0 +1,17 @@
+/** Toolbar — layout only; see the directive for why it carries no role. */
+
+.nx-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--nx-space-2);
+  box-sizing: border-box;
+  padding: var(--nx-space-2) var(--nx-space-3);
+  border: 1px solid var(--nx-border-subtle);
+  border-radius: var(--nx-radius-md);
+  background-color: var(--nx-surface-raised);
+  flex-wrap: wrap;
+}
+
+.nx-toolbar__spacer {
+  flex: 1 1 auto;
+}

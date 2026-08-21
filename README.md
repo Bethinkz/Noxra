@@ -29,17 +29,17 @@ Noxra is a UI library built for Angular rather than adapted to it.
 
 ## Status
 
-| Area                        | State                                                       |
-| --------------------------- | ----------------------------------------------------------- |
-| Workspace, build, packaging | Working                                                     |
-| Design tokens and theming   | 87 tokens, 4 themes, contract + WCAG AA enforced            |
-| Motion system               | Tokens, reduced-motion, looping motion                      |
-| Components                  | Button, Input, Card, Badge, Spinner, Dialog, Alert, Tooltip |
-| Tests                       | 84 specs: jsdom, browser, SSR                               |
-| SSR                         | Prerender + per-request rendering, both verified            |
-| CI                          | GitHub Actions, with an Angular version matrix              |
-| Visual design               | Real palette, type scale and motion values                  |
-| Published to npm            | No                                                          |
+| Area                        | State                                            |
+| --------------------------- | ------------------------------------------------ |
+| Workspace, build, packaging | Working                                          |
+| Design tokens and theming   | 87 tokens, 4 themes, contract + WCAG AA enforced |
+| Motion system               | Tokens, reduced-motion, looping motion           |
+| Components                  | 20 across forms, display and overlays            |
+| Tests                       | 98 specs: jsdom, browser, SSR                    |
+| SSR                         | Prerender + per-request rendering, both verified |
+| CI                          | GitHub Actions, with an Angular version matrix   |
+| Visual design               | Real palette, type scale and motion values       |
+| Published to npm            | No                                               |
 
 ## Requirements
 
@@ -96,7 +96,7 @@ noxra/
 │  │     ├─ lib/
 │  │     │  ├─ core/            tokens, theme, motion, a11y, utilities
 │  │     │  ├─ primitives/      reusable behaviour (empty, deliberately)
-│  │     │  └─ components/      button, input, card, badge, spinner
+│  │     │  └─ components/      20 components: forms, display, overlays
 │  │     └─ styles/             published CSS: tokens, themes, base, components
 │  └─ showcase/                 development playground and first consumer (SSR)
 ├─ docs/                        architecture, tokens, motion, compatibility

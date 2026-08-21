@@ -26,6 +26,7 @@ describe('App shell', () => {
       'Forms',
       'Card',
       'Badge',
+      'Display',
       'Overlays',
     ]);
   });

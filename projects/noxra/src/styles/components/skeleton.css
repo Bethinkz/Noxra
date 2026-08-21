@@ -1,0 +1,29 @@
+/**
+ * Skeleton — a placeholder for content that has not arrived.
+ *
+ * The pulse runs on the looping motion tokens, so reduced motion slows and
+ * steps it rather than stopping it. A frozen skeleton reads as a broken layout.
+ */
+
+@keyframes nx-skeleton-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.nx-skeleton {
+  display: block;
+  inline-size: 100%;
+  min-block-size: 1em;
+  border-radius: var(--nx-radius-sm);
+  background-color: var(--nx-state-hover);
+  animation: nx-skeleton-pulse calc(var(--nx-duration-loop) * 2) var(--nx-easing-loop) infinite;
+}
+
+.nx-skeleton[data-shape='block'] {
+  border-radius: var(--nx-radius-md);
+}
+
+.nx-skeleton[data-shape='circle'] {
+  border-radius: var(--nx-radius-full);
+}
